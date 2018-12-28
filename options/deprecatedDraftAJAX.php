@@ -1,7 +1,7 @@
 <?php
 #this avoids asking to log in in RedCap
 define('NOAUTH',true);
-require_once dirname(dirname(__FILE__)) . "../base.php";
+require_once "../base.php";
 session_start();
 
 $deprecated = empty($_POST['deprecated']) ? $_SESSION['draft'] : $_POST['deprecated'];
