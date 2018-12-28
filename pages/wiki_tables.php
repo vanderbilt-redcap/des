@@ -35,7 +35,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
 
 <br/>
 <div class="col-md-12">
-    <span class="wiki_title">IeDEA Data Exchange Standard</span>
+    <span class="wiki_title"><?=$settings['des_wkname']?> Data Exchange Standard</span>
 </div>
 <div class="col-md-12 wiki wiki_text wiki_text_size">
     <span stye="float:left;display: block">This site provides an auto-generated, web-browsable version of the IeDEA Data Exchange Standard (IeDEA DES), a <strong>common data model for sharing observational HIV data</strong> developed by the <a href="http://iedea.org" target="_blank">International epidemiology Databases to Evaluate AIDS</a> (IeDEA). More information on the data model is available on our <a href="http://iedea.github.io" target="_blank">GitHub page</a>.</span>

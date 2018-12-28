@@ -1,14 +1,14 @@
 <?php
+require_once "base.php";
 #this avoids asking to log in in RedCap
 define('NOAUTH',true);
 
 session_start();
 //$Core->displayErrorsAndWarnings();
 
-//$projectDESSettings = new \Plugin\Project(DES_SETTINGS);
-//$RecordSetSettings= new \Plugin\RecordSet($projectDESSettings, array(\Plugin\RecordSet::getKeyComparatorPair($projectSettings->getFirstFieldName(),"!=") => ""));
-//$settings = $RecordSetSettings->getDetails()[0];
-
+$projectDESSettings = new \Plugin\Project(DES_SETTINGS);
+$RecordSetSettings= new \Plugin\RecordSet($projectDESSettings, array(\Plugin\RecordSet::getKeyComparatorPair($projectDESSettings->getFirstFieldName(),"!=") => ""));
+$settings = $RecordSetSettings->getDetails()[0];
 
 //if(!empty($_POST['deprecated']) && !empty($_SESSION['deprecated']) && $_POST['deprecated'] != $_SESSION['deprecated']) {
 //    $deprecated_check = $_SESSION['deprecated'];

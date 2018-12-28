@@ -1,9 +1,9 @@
 <?PHP
-require_once "base.php";
 
 $img_logo = "img/iedea_logo-100x40.png";
-if($settings['hub_logo'] != ''){
-    $sql = "SELECT stored_name,doc_name,doc_size FROM redcap_edocs_metadata WHERE doc_id=" . $settings['hub_logo'];
+
+if($settings['des_logo'] != ''){
+    $sql = "SELECT stored_name,doc_name,doc_size FROM redcap_edocs_metadata WHERE doc_id=" . $settings['des_logo'];
     $q = db_query($sql);
 
     if ($error = db_error()) {
@@ -11,7 +11,7 @@ if($settings['hub_logo'] != ''){
     }
 
     while ($row = db_fetch_assoc($q)) {
-        $img_logo = 'downloadFile.php?sname=' . $row['stored_name'] . '&file=' . $row['doc_name'];
+        $img_logo = 'options/downloadFile.php?sname=' . $row['stored_name'] . '&file=' . $row['doc_name'];
     }
 }
 
