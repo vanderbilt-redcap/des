@@ -274,7 +274,7 @@
 .wiki_container{
     margin:auto;
     font-size:13px;
-    padding-left: 45px;
+    padding-left: 45px !important;
 }
 .wiki_link{
      background-color:#e59400 !important;
@@ -360,6 +360,10 @@
 }
 .required_des td:nth-child(1){
     font-weight: bold;
+}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    vertical-align: middle !important;
 }
 
 /***HARMONIST***/
