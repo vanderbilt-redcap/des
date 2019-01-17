@@ -18,7 +18,7 @@
 <script>
     jQuery(document).ready(function($){
         $('#downloadPDF').submit(function () {
-            $('#loader').show();
+            // $('#loader').show();
         });
     });
 </script>
