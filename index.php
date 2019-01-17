@@ -1,7 +1,9 @@
 <?php
-require_once "base.php";
 #this avoids asking to log in in RedCap
 define('NOAUTH',true);
+
+require_once "base.php";
+
 
 session_start();
 //$Core->displayErrorsAndWarnings();
