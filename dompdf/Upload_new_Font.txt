@@ -1,0 +1,8 @@
+To Upload a new font for dompdf to use:
+
+1) Upload files in .ttf format in dompdf folder
+2)In a CMD window, in the dompf folder, type:
+
+php load_font.php font_name font.ttf fontBold.ttf fontItalic.ttf fontBoldItalic.ttf
+
+3)Make sure you have the load_font.php file and also change 'font.ttf' for your real font name

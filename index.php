@@ -27,7 +27,7 @@ $settings = $RecordSetSettings->getDetails()[0];
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="img/iedea_favicon.png">
+    <link rel="icon" href="<?=getImageToDisplay($settings['des_favicon']);?>">
 
     <title>IeDEA - DES Browser</title>
 
@@ -51,7 +51,7 @@ $settings = $RecordSetSettings->getDetails()[0];
     <script type="text/javascript" src="js/dataTables.select.min.js"></script>
     <script type="text/javascript" src="js/dataTables.buttons.min.js"></script>
 
-
+    <link type='text/css' href='js/fonts-awesome/css/font-awesome.min.css' rel='stylesheet' media='screen' />
     <link type='text/css' href='css/style.css' rel='stylesheet' media='screen' />
     <link type='text/css' href='css/sortable-theme-bootstrap.css' rel='stylesheet' media='screen' />
     <link type='text/css' href='bootstrap-3.3.7/css/bootstrap.min.css' rel='stylesheet' media='screen' />
@@ -63,6 +63,7 @@ $settings = $RecordSetSettings->getDetails()[0];
     </style>
     <?php include('header.php'); ?>
     <?php include('navbar.php'); ?>
+    <?php include('downloadButtons.php'); ?>
 </head>
 
 <body>
