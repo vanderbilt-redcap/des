@@ -32,7 +32,7 @@ $page_num = '<style>.footer .page-number:after { content: counter(page); } .foot
 
 
 $html_pdf = "<html><body style='font-family:\"Calibri\";font-size:10pt;'>".$page_num
-    ."<div class='footer' style='left: 600px;'><span class='page-number'>Page </span></div>"
+    ."<div class='footer' style='left: 590px;'><span class='page-number'>Page </span></div>"
     ."<div class='mainPDF'><table style='width: 100%;'><tr><td align='center'><img src='../img/IeDEA-logo-200px.png' style='width:200px;padding-bottom: 30px;'></td></tr></table></div>"
     ."<div class='mainPDF' id='page_html_style'><table style='width: 100%;'>".$first_page."<div style='page-break-before: always;'></div>"
     ."<div class='mainPDF'>".$second_page."<div style='page-break-before: always;'></div>"
