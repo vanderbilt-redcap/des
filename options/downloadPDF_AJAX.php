@@ -1,7 +1,8 @@
 <?php
 define('NOAUTH',true);
-require_once "../base.php";
-require_once "../dompdf/autoload.inc.php";
+require_once dirname(dirname(__FILE__)) . "/base.php";
+require_once dirname(dirname(__FILE__)) . "/dompdf/autoload.inc.php";
+
 
 $projectDESSettings = new \Plugin\Project(DES_SETTINGS);
 $RecordSetSettings= new \Plugin\RecordSet($projectDESSettings, array(\Plugin\RecordSet::getKeyComparatorPair($projectDESSettings->getFirstFieldName(),"!=") => ""));
@@ -51,12 +52,6 @@ $filename = $settings['des_wkname']."_DES_".$text_option.date("Y-m-d_hi",time())
 $dompdf = new \Dompdf\Dompdf();
 $dompdf->loadHtml($html_pdf);
 $dompdf->setPaper('A4', 'portrait');
-ob_start();
-$dompdf->render();
-//#Download option
 $dompdf->stream($filename);
-$output = $dompdf->output();
-
-$filesize = file_put_contents(EDOC_PATH.$storedName, $output);
 
 ?>
