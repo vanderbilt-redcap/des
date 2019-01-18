@@ -52,6 +52,10 @@ $filename = $settings['des_wkname']."_DES_".$text_option.date("Y-m-d_hi",time())
 $dompdf = new \Dompdf\Dompdf();
 $dompdf->loadHtml($html_pdf);
 $dompdf->setPaper('A4', 'portrait');
+ob_start();
+$dompdf->render();
+//#Download option
 $dompdf->stream($filename);
+
 
 ?>
