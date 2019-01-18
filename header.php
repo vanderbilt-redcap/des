@@ -13,7 +13,7 @@
                 </a>
 
                 <a href="index.php" style="text-decoration: none;float:left" class="hub_header_title">
-                    <span class="">DES Browser</span>
+                    <span class=""><?=$settings['des_doc_title']?></span>
                 </a>
             </div>
         </div>

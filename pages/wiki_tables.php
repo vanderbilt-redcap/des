@@ -35,14 +35,15 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
 
 <br/>
 <div class="col-md-12">
-    <span class="wiki_title"><?=$settings['des_wkname']?> Data Exchange Standard</span>
+    <span class="wiki_title"><?=$settings['des_doc_subtitle']?></span>
 </div>
+
 <div class="col-md-12 wiki wiki_text wiki_text_size">
-    <span stye="float:left;display: block">This site provides an auto-generated, web-browsable version of the IeDEA Data Exchange Standard (IeDEA DES), a <strong>common data model for sharing observational HIV data</strong> developed by the <a href="http://iedea.org" target="_blank">International epidemiology Databases to Evaluate AIDS</a> (IeDEA). More information on the data model is available on our <a href="http://iedea.github.io" target="_blank">GitHub page</a>.</span>
+    <?php echo $settings['des_doc_fronttext']?>
 </div>
 <div class="col-md-12 wiki_text wiki_text_size" style="padding-top: 0;padding-bottom: 30px;">
-    <span style="display: block"><?=$filerepo[0]['upload_name']?> ( <img src="img/download-arrow.png" width="15px" alt="arrow"/> <a href="options/downloadFile.php?<?= parseCSVtoLink($filerepo[0]['upload_file']);?>" target="_blank">Download PDF</a>, last updated <?=$filerepo[0]['upload_date']?>)</span>
-    <span style="display: block"><?=$filerepo[1]['upload_name']?> ( <img src="img/download-arrow.png" width="15px" alt="arrow"/> <a href="options/downloadFile.php?<?= parseCSVtoLink($filerepo[1]['upload_file']);?>" target="_blank">Download</a>, last updated <?=$filerepo[1]['upload_date']?>)</span>
+    <span style="display: block"><?=$filerepo[0]['upload_name']?> (<i class="fa fa-arrow-down" style="color:#5cb85c"></i> <a href="options/downloadFile.php?<?= parseCSVtoLink($filerepo[0]['upload_file']);?>" target="_blank">Download PDF</a>, last updated <?=$filerepo[0]['upload_date']?>)</span>
+    <span style="display: block"><?=$filerepo[1]['upload_name']?> (<i class="fa fa-arrow-down" style="color:#5cb85c"></i> <a href="options/downloadFile.php?<?= parseCSVtoLink($filerepo[1]['upload_file']);?>" target="_blank">Download</a>, last updated <?=$filerepo[1]['upload_date']?>)</span>
 </div>
 <div class="container-fluid wiki">
     <div class='row' style=''>

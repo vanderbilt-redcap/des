@@ -5,7 +5,7 @@
         <div style="display: inline-block;float: left;">
             <div id="load_message" class="alert alert-info fade in col-md-12" style="display: none">
                 <div id="loader-mini" style="float:left"></div>
-                <div style="float:left;padding-left: 20px;line-height: 50px;">Please wait until the file is downloaded. It an take a few minutes.</div>
+                <div style="float:left;padding-left: 20px;line-height: 50px;">Please wait while the file is generated. It may take a few minutes.</div>
             </div>
         </div>
     <div style="display: inline-block;float: right;">
