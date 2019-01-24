@@ -191,7 +191,7 @@ function generateTablesHTML_pdf($dataTable,$mode){
                                 } else if ($codeformat['code_format'] == '3') {
                                     $dataFormat = "Numeric<br/>";
                                     if (array_key_exists('code_file', $codeformat) && $data['codes_print'][$id] == '1') {
-                                        $htmlCodes .= "<table  border ='0' style='width: 100%;display:none' record_id='" . $record_varname . "'><tr><td><strong>" . $data['variable_name'][$id] . " code list:</strong><br/></td></tr></table>" . getHtmlCodesTable($codeformat['code_file'], $htmlCodes, $record_varname);
+                                        $htmlCodes .= "<table  border ='0' style='width: 100%;' record_id='" . $record_varname . "'><tr><td><strong>" . $data['variable_name'][$id] . " code list:</strong><br/></td></tr></table>" . getHtmlCodesTable($codeformat['code_file'], $htmlCodes, $record_varname);
                                     }
                                 }else if ($codeformat['code_format'] == '4') {
                                     $dataFormat = "<a href='https://bioportal.bioontology.org/ontologies/".$codeformat['code_ontology']."' target='_blank'>See Ontology Link</a><br/>";
@@ -231,7 +231,7 @@ function generateTablesHTML_pdf($dataTable,$mode){
 function getHtmlCodesTable($code_file,$htmlCodes,$id){
     $csv = parseCSVtoArray($code_file);
     if(!empty($csv)) {
-        $htmlCodes = '<table border="1px" style="border-collapse: collapse;display:none;" record_id="'. $id .'">';
+        $htmlCodes = '<table border="1px" style="border-collapse: collapse;" record_id="'. $id .'">';
         foreach ($csv as $header => $content) {
             $htmlCodes .= '<tr style="border: 1px solid #000;">';
             foreach ($content as $col => $value) {
