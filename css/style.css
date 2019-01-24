@@ -243,11 +243,6 @@
 .code_modal_td{
     padding: 5px 10px 5px 10px;
 }
-.btn_code_modal{
-    text-decoration:underline;
-    font-size: 12px;
-    font-weight: bold;
-}
 .panel-heading-sop{
     background-color: #fff2e6 !important;
     border-color: #ffd9b3 !important;
@@ -962,8 +957,7 @@ table[data-sortable].sortable-theme-bootstrap.sop_discuss tbody td{
 }
 .btn_code_modal{
     text-decoration:underline;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: 13px;
 }
 /*SOP STEPS*/
 #save_continue_2,#previous_2,#save_continue_4,#previous_4 {

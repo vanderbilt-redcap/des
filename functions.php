@@ -193,6 +193,8 @@ function generateTablesHTML_pdf($dataTable,$mode){
                                     if (array_key_exists('code_file', $codeformat) && $data['codes_print'][$id] == '1') {
                                         $htmlCodes .= "<table  border ='0' style='width: 100%;display:none' record_id='" . $record_varname . "'><tr><td><strong>" . $data['variable_name'][$id] . " code list:</strong><br/></td></tr></table>" . getHtmlCodesTable($codeformat['code_file'], $htmlCodes, $record_varname);
                                     }
+                                }else if ($codeformat['code_format'] == '4') {
+                                    $dataFormat = "<a href='https://bioportal.bioontology.org/ontologies/".$codeformat['code_ontology']."' target='_blank'>See Ontology Link</a><br/>";
                                 }
                             }
                         }
@@ -247,7 +249,6 @@ function getHtmlCodesTable($code_file,$htmlCodes,$id){
     }
     return $htmlCodes;
 }
-
 
 /**
  * Table list with anchor links for the PDF

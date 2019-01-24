@@ -207,6 +207,8 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                                             '</div>'.
                                                             '</div></div></div>';
                                                     }
+                                                } else if ($codeformat['code_format'] == '4') {
+                                                    echo "<a href='https://bioportal.bioontology.org/ontologies/".$codeformat['code_ontology']."' target='_blank'>See Ontology Link</a><br/>";
                                                 }
                                             } else {
                                                 echo $dataFormat;
