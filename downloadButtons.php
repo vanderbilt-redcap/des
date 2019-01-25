@@ -26,8 +26,8 @@
     jQuery(document).ready(function($){
         $('#downloadPDF').submit(function () {
             $('#load_message').show();
-            //After 15 seconds hide message
-            setTimeout(function(){ $('#load_message').hide(); }, 15000);
+            //After 25 seconds hide message
+            setTimeout(function(){ $('#load_message').hide(); }, 25000);
         });
     });
 </script>
