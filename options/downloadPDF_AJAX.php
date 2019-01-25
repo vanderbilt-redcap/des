@@ -28,7 +28,7 @@ $first_page .= "</span></td></tr></table>";
 #SECOND PAGE
 $second_page .= "<p><span style='font-size: 12pt'>".$requested_tables."</span></p>";
 
-$page_num = '<style>.footer .page-number:after { content: counter(page); } .footer { position: fixed; bottom: 0px;color:grey }</style>';
+$page_num = '<style>.footer .page-number:after { content: counter(page); } .footer { position: fixed; bottom: 0px;color:grey }a{text-decoration: none;}</style>';
 
 
 $html_pdf = "<html><body style='font-family:\"Calibri\";font-size:10pt;'>".$page_num
