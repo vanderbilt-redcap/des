@@ -260,7 +260,7 @@ function generateRequestedTablesList_pdf($dataTable,$mode){
     $requested_tables = "<ol>";
     foreach ($dataTable as $data) {
         if (!empty($data['record_id']) && (($mode == '1' && ($data['table_status'] != "0" && $data['table_status'] != "2")) || $mode == '0')) {
-            $requested_tables .= "<li><a href='#anchor_" . $data['record_id'] . "'>" . $data["table_name"] . "</a></li>";
+            $requested_tables .= "<li><a href='#anchor_" . $data['record_id'] . "' style='text-decoration:none'>" . $data["table_name"] . "</a></li>";
         }
     }
     $requested_tables .= "</ol>";
