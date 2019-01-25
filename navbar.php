@@ -1,6 +1,6 @@
 
     <div>
-        <div class="nav nav-pills" style="margin-top: 120px;padding-left: 60px;">
+        <div class="nav nav-pills" style="margin-top: 100px;padding-left: 60px;">
             <?PHP
             $active = "";
             $path = "";
