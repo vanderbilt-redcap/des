@@ -1,0 +1,8 @@
+"Variable / Field Name","Form Name","Section Header","Field Type","Field Label","Choices, Calculations, OR Slider Labels","Field Note","Text Validation Type OR Show Slider Number","Text Validation Min","Text Validation Max",Identifier?,"Branching Logic (Show field only if...)","Required Field?","Custom Alignment","Question Number (surveys only)","Matrix Group Name","Matrix Ranking?","Field Annotation"
+record_id,my_first_instrument,,text,"Record ID",,,,,,,,,,,,,
+des_logo,my_first_instrument,,file,Logo,,,,,,,,,,,,,
+des_wkname,my_first_instrument,,text,"Working Group Name",,,,,,,,,,,,,
+des_favicon,my_first_instrument,,file,Favicon,,,,,,,,,RH,,,,
+des_doc_title,my_first_instrument,,notes,,,,,,,,,,,,,,
+des_doc_subtitle,my_first_instrument,,notes,Subtitle,,,,,,,,,,,,,
+des_doc_fronttext,my_first_instrument,,notes,"Front Text",,,,,,,,,,,,,
