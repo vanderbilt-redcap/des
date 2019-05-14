@@ -8,6 +8,7 @@ $deprecated = empty($_POST['deprecated']) ? $_SESSION['draft'] : $_POST['depreca
 $draft = empty($_POST['draft']) ? $_SESSION['draft'] : $_POST['draft'];
 $tid = empty($_REQUEST['tid']) ? "" : $_REQUEST['tid'];
 $vid = empty($_REQUEST['vid']) ? "" : $_REQUEST['vid'];
+$result = array();
 $result['html'] = '';
 $result['variablesInfo'] = '';
 

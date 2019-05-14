@@ -23,7 +23,16 @@ if(empty($deprecated)){
 #We get the Tables and Variables information
 $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
 ?>
-
+<script>
+    $(document).ready(function() {
+        if($('#deprecated_info').is(':checked')){
+            $('.deprecated').show();
+        }
+        if($('#draft_info').is(':checked')){
+            $('.draft').show();
+        }
+    });
+</script>
 <br/>
 <br/>
 <div class="container-fluid wiki">
