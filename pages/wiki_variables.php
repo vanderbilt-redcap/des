@@ -116,6 +116,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                     foreach ($data['variable_order'] as $id => $value) {
                                         $variable_display = "";
                                         $variable_text = "";
+                                        $deprecated_text = "";
                                         if (array_key_exists('variable_status', $data) && array_key_exists($id, $data['variable_status'])) {
                                             if($data['variable_status'][$id] == "0"){//DRAFT
                                                 if($draft == 'false') {//DEPRECATED
@@ -127,6 +128,20 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                                     $variable_display = "display:none";
                                                 }
                                                 $variable_text = "<span class='wiki_deprecated'><strong>DEPRECATED</strong></span><br/>";
+
+                                                if($data['variable_replacedby'][$id] != ""){
+                                                    $variable_replacedby = explode("|",$data['variable_replacedby'][$id]);
+                                                    $table = getProjectInfoArray(IEDEA_DATAMODEL,array('record_id' => $variable_replacedby[0]),"simple");
+                                                    $table_name = $table['table_name'];
+                                                    $var_name = $table['variable_name'][$variable_replacedby[1]];
+
+                                                    $deprecated_text .= "<div><em>This variable was deprecated on ".date("d M Y",strtotime($data['variable_deprecated_d'][$id]))." and replaced with ".$table_name." | ".$var_name.".</em></div>";
+                                                }else if($data['variable_replacedby'][$id] == "" && $data['variable_deprecated_d'][$id] != ""){
+                                                    $deprecated_text .= "<div><em>This variable was deprecated on ".date("d M Y",strtotime($data['variable_deprecated_d'][$id])).".</em></div>";
+                                                }else if($data['variable_replacedby'][$id] == "" && $data['variable_deprecated_d'][$id] == ""){
+                                                    $deprecated_text .= "<div><em>This variable was deprecated.</div>";
+                                                }
+                                                $deprecated_text .= "<div><em>".$data['variable_deprecatedinfo'][$id]."</em></div>";
                                             }
                                         }
 
@@ -223,15 +238,16 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                                 echo $dataFormat;
                                             }
                                         }
-                                        echo '</td><td id="'.$record_var_aux.'_description">'.$required_text;
-                                        echo $variable_text.mb_convert_encoding($data['description'][$id], 'UTF-8');
+                                        echo '</td><td id="'.$record_var_aux.'_description"><div style="padding-bottom: 8px;padding-top: 8px">'.$required_text;
+                                        echo "<div>".$variable_text.mb_convert_encoding($data['description'][$id], 'UTF-8')."</div>";
                                         if (!empty($data['description_extra'][$id])) {
-                                            echo "<br/><i>" . $data['description_extra'][$id] . "</i>";
+                                            echo "<div><i>" . $data['description_extra'][$id] . "</i></div>";
                                         }
                                         if (!empty($data['code_text'][$id])) {
-                                            echo "<br/><i>" . $data['code_text'][$id] . "</i>";
+                                            echo "<div><i>" . $data['code_text'][$id] . "</i></div>";
                                         }
-                                        echo '</td>';
+                                        echo $deprecated_text;
+                                        echo '</div></td>';
                                         echo '</tr>';
                                     }
                                     ?>
