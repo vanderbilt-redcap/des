@@ -183,7 +183,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                                     echo $dataFormat;
 
                                                 } else if ($codeformat['code_format'] == '3') {
-                                                    echo 'Numeric<br/>';
+                                                    echo $dataFormat.'<br/>';
 
                                                     if (array_key_exists('code_file', $codeformat)) {
                                                         echo '<a href="#codesModal'.$codeformat['code_file'].'_'.$name.'" id="btnViewCodes" type="button" class="btn_code_modal open-codesModal" data-toggle="modal" data-target="#codesModal'.$codeformat['code_file'].'_'.$name.'">See Code List</a>';
