@@ -19,10 +19,10 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                     <?php
                     if (array_key_exists('variable_status', $data) && array_key_exists($vid, $data['variable_status'])) {
                         if ($data['variable_status'][$vid] == "2") {
-                            ?><span class="wiki_deprecated wiki_deprecated_draft_message">DEPRECATED</span><?php
+                            ?><span class="wiki_deprecated wiki_deprecated_draft_message"><em class='fa fa-exclamation-circle'></em> DEPRECATED</span><?php
                         }
                         if ($data['variable_status'][$vid] == "0") {
-                            ?><span class="wiki_draft wiki_deprecated_draft_message">DRAFT</span><?php
+                            ?><span class="wiki_draft wiki_deprecated_draft_message"><em class='fa fa-clock-o'></em> DRAFT</span><?php
                         }
                     }
                     ?>

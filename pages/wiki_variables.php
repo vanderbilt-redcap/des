@@ -124,13 +124,13 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                                     $variable_display = "display:none";
                                                     $variable_class = "draft";
                                                 }
-                                                $variable_text = "<span class='wiki_draft'><strong>DRAFT</strong></span><br/>";
+                                                $variable_text = "<span class='wiki_draft'><em class='fa fa-clock-o'></em> <strong>DRAFT</strong></span><br/>";
                                             }else if($data['variable_status'][$id] == "2"){
                                                 if($deprecated == 'false') {//DEPRECATED
                                                     $variable_display = "display:none";
                                                     $variable_class = "deprecated";
                                                 }
-                                                $variable_text = "<span class='wiki_deprecated'><strong>DEPRECATED</strong></span><br/>";
+                                                $variable_text = "<span class='wiki_deprecated'><em class='fa fa-exclamation-circle'></em> <strong>DEPRECATED</strong></span><br/>";
 
                                                 if($data['variable_replacedby'][$id] != ""){
                                                     $variable_replacedby = explode("|",$data['variable_replacedby'][$id]);

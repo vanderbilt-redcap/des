@@ -79,13 +79,13 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
                                 $variable_class = "";
                                 if (array_key_exists('table_status', $data)) {
                                     if($data['table_status'] == "0"){//DRAFT
-                                        $variable_text = "<span class='wiki_draft'><strong>DRAFT</strong></span><br/>";
+                                        $variable_text = "<span class='wiki_draft'><em class='fa fa-clock-o'></em> <strong>DRAFT</strong></span><br/>";
                                         $variable_class = "draft";
                                         if($draft == 'false') {
                                             $variable_display = "display:none";
                                         }
                                     }else if($data['table_status'] == "2"){
-                                        $variable_text = "<span class='wiki_deprecated'><strong>DEPRECATED</strong></span><br/>";
+                                        $variable_text = "<span class='wiki_deprecated'><em class='fa fa-exclamation-circle'></em> <strong>DEPRECATED</strong></span><br/>";
                                         $variable_class = "deprecated";
                                         if($deprecated == 'false') {//DEPRECATED
                                             $variable_display = "display:none";
