@@ -117,15 +117,18 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                         $variable_display = "";
                                         $variable_text = "";
                                         $deprecated_text = "";
+                                        $variable_class = "";
                                         if (array_key_exists('variable_status', $data) && array_key_exists($id, $data['variable_status'])) {
                                             if($data['variable_status'][$id] == "0"){//DRAFT
                                                 if($draft == 'false') {//DEPRECATED
                                                     $variable_display = "display:none";
+                                                    $variable_class = "draft";
                                                 }
                                                 $variable_text = "<span class='wiki_draft'><strong>DRAFT</strong></span><br/>";
                                             }else if($data['variable_status'][$id] == "2"){
                                                 if($deprecated == 'false') {//DEPRECATED
                                                     $variable_display = "display:none";
+                                                    $variable_class = "deprecated";
                                                 }
                                                 $variable_text = "<span class='wiki_deprecated'><strong>DEPRECATED</strong></span><br/>";
 
@@ -156,7 +159,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                         $record_var = $id;
                                         $name = $data['variable_name'][$id];
                                         $url = 'index.php?pid=' . DES_DATAMODEL . '&tid=' . $tid . '&vid=' . $record_var . '&page=variableInfo';
-                                        echo '<tr class="'.$required_class.'" style="' . $variable_display . '"" id="'.$record_var_aux.'_row">' .
+                                        echo '<tr class="'.$required_class." ".$variable_class.'" style="' . $variable_display . '"" id="'.$record_var_aux.'_row">' .
                                             '<td style="width:130px">' .
                                             '<a href="'.$url.'" onclick="addURL(\''.$url.'\', \'&deprecated=\'+$(\'#deprecated_info\').is(\':checked\')+\'&draft=\'+$(\'#draft_info\').is(\':checked\'));">' . $name . '</a>' .
                                             '</td>' .

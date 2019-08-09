@@ -76,14 +76,17 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
                             if (!empty($data['record_id'])) {
                                 $variable_display = "";
                                 $variable_text = "";
+                                $variable_class = "";
                                 if (array_key_exists('table_status', $data)) {
                                     if($data['table_status'] == "0"){//DRAFT
                                         $variable_text = "<span class='wiki_draft'><strong>DRAFT</strong></span><br/>";
+                                        $variable_class = "draft";
                                         if($draft == 'false') {
                                             $variable_display = "display:none";
                                         }
                                     }else if($data['table_status'] == "2"){
                                         $variable_text = "<span class='wiki_deprecated'><strong>DEPRECATED</strong></span><br/>";
+                                        $variable_class = "deprecated";
                                         if($deprecated == 'false') {//DEPRECATED
                                             $variable_display = "display:none";
                                         }
@@ -100,7 +103,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
                                 $record_var_aux = empty($data['record_id']) ? '1' : $data['record_id'];
                                 $definition = mb_convert_encoding(array_key_exists('table_definition',$data)?$data['table_definition']:"",'UTF-8');
                                 $url = "index.php?pid=".DES_DATAMODEL."&tid=".$data['record_id']."&page=variables";
-                                echo '<tr class="'.$required_class.'" style="' . $variable_display . '" id="'.$record_var_aux.'_row">'.
+                                echo '<tr class="'.$required_class." ".$variable_class.'" style="' . $variable_display . '" id="'.$record_var_aux.'_row">'.
                                     '<td class="'.$required_class.'">'.
                                     '<a href="'.$url.'" id="tables_link" onclick="addURL(\''.$url.'\', \'&deprecated=\'+$(\'#deprecated_info\').is(\':checked\')+\'&draft=\'+$(\'#draft_info\').is(\':checked\'));">'.$data['table_name'].'</a>'.
                                     '</td>'.
