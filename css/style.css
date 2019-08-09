@@ -161,8 +161,8 @@
     transform: rotate(180deg);
 }
 .draft{
-    background-color: #ffffcc;
-    border-color: #ffffcc !important;
+    background-color: #ffffe6;
+    border-color: #ffffe6 !important;
 }
 .fields_loaded{
     float:right;
@@ -915,7 +915,7 @@ table[data-sortable].sortable-theme-bootstrap.sop_discuss tbody td{
 }
 
 .des_draft_header{
-    background-color: #ffffcc  !important;
+    background-color: #ffffe6  !important;
 }
 .rowSelected{
     background-color:#e6f5ff !important;
