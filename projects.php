@@ -15,9 +15,7 @@ $projects = $RecordSetProjects->getDetails();
 $linkedProjects = array();
 
 foreach ($projects as $project){
-    define('PROD_DES_'.$project['project_constant'],$project['project_prod_id']);
-    define('TEST_DES_'.$project['project_constant'],$project['project_test_id']);
-    define('DEV_DES_'.$project['project_constant'],$project['project_dev_id']);
+    define(ENVIRONMENT . '_DES_' . $project['project_constant'], $project['project_id']);
     array_push($linkedProjects,"DES_".$project['project_constant']);
 }
 

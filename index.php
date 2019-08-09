@@ -33,9 +33,6 @@ $settings = $RecordSetSettings->getDetails()[0];
 
     <title>IeDEA - DES Browser</title>
 
-    <?php //$Core->getCss(); ?>
-    <?php //$Core->getJs(); ?>
-
     <script type='text/javascript'>
         var app_path_webroot = '<?=APP_PATH_WEBROOT?>';
         var app_path_webroot_full = '<?=APP_PATH_WEBROOT?>';
