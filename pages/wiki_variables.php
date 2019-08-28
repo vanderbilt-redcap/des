@@ -192,7 +192,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                                         echo '<a href="#codesModal'.$codeformat['code_file'].'_'.$name.'" id="btnViewCodes" type="button" class="btn_code_modal open-codesModal" data-toggle="modal" data-target="#codesModal'.$codeformat['code_file'].'_'.$name.'">See Code List</a>';
 
                                                         #modal window with the updates
-                                                        echo '<div class="modal fade" id="codesModal'.$codeformat['code_file'].'_'.$name.'" tabindex="-1" role="dialog" aria-labelledby="Codes">' .
+                                                        echo '<div class="modal fade" id="codesModal'.$codeformat['code_file'].'_'.$name.'" role="dialog" aria-labelledby="Codes">' .
                                                             '<div class="modal-dialog" role="document">' .
                                                             '<div class="modal-content">' .
                                                             '<div class="modal-header">' .

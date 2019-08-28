@@ -35,12 +35,12 @@ function getProjectInfoArray($project, $info_array="", $type="", $fieldName="", 
  * @return array|mixed
  */
 function getTablesInfo($projectID, $tableID="", $tableOrderParam="table_order"){
-    $sql = "SELECT * FROM `redcap_events_arms` WHERE project_id =".$projectID;
+    $sql = "SELECT * FROM `redcap_events_arms` WHERE project_id ='".db_escape($projectID)."'";
     $q = db_query($sql);
 
     $dataTable = array();
     while ($row = db_fetch_assoc($q)){
-        $sqlTable = "SELECT * FROM `redcap_events_metadata` WHERE arm_id =".$row['arm_id'];
+        $sqlTable = "SELECT * FROM `redcap_events_metadata` WHERE arm_id ='".db_escape($row['arm_id'])."'";
         $qTable = db_query($sqlTable);
         while ($rowTable = db_fetch_assoc($qTable)){
             $dataTable = generateTableArray($rowTable['event_id'], $projectID,$dataTable,$tableID,$tableOrderParam);
@@ -270,7 +270,7 @@ function generateRequestedTablesList_pdf($dataTable,$mode){
 function getImageToDisplay($edoc){
     $img_logo = '';
     if($edoc != ''){
-        $sql = "SELECT stored_name,doc_name,doc_size FROM redcap_edocs_metadata WHERE doc_id=" . $edoc;
+        $sql = "SELECT stored_name,doc_name,doc_size FROM redcap_edocs_metadata WHERE doc_id='" . db_escape($edoc)."'";
         $q = db_query($sql);
 
         if ($error = db_error()) {
