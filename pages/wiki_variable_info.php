@@ -16,16 +16,6 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                 ?>
                 <div class="col-md-12">
                     <span class="wiki_title"><?PHP echo $data['variable_name'][$vid];?></span>
-                    <?php
-                    if (array_key_exists('variable_status', $data) && array_key_exists($vid, $data['variable_status'])) {
-                        if ($data['variable_status'][$vid] == "2") {
-                            ?><span class="wiki_deprecated wiki_deprecated_draft_message"><em class='fa fa-exclamation-circle'></em> DEPRECATED</span><?php
-                        }
-                        if ($data['variable_status'][$vid] == "0") {
-                            ?><span class="wiki_draft wiki_deprecated_draft_message"><em class='fa fa-clock-o'></em> DRAFT</span><?php
-                        }
-                    }
-                    ?>
                 </div>
                 <div class="col-md-12 wiki_text wiki_text_size">
                     <span style="display:block;"><?PHP echo $data['description'][$vid]; ?></span>
@@ -87,7 +77,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                     <span class="wiki_title_small">Variable status</span>
                     <div class="wiki_text_inside wiki_text_size">
                         <?php if($data['variable_required'][$vid][0] == '1'){
-                            ?><span style="display:block;">Required</span><?php
+                            ?><span style='color:red'><em>*Required</em></span><?php
                         }
                         if (array_key_exists('variable_status', $data) && array_key_exists($vid, $data['variable_status'])) {
                             if ($data['variable_status'][$vid] == "0") {
@@ -95,21 +85,21 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                 if(array_key_exists('variable_added_d', $data) && !empty($data['variable_added_d'][$vid])){
                                     $date_d = "(".$data['variable_added_d'][$vid].")";
                                 }
-                                ?><span style="display:block;">Draft <?=$date_d?></span><?php
+                                ?><span style="display:block;"><span class="fa fa-clock-o wiki_draft"></span> <em>Draft <?=$date_d?></em></span><?php
                             }
                             if ($data['variable_status'][$vid] == "1") {
                                 $date_d = "";
                                 if(array_key_exists('variable_added_d', $data) && !empty($data['variable_added_d'][$vid])){
                                     $date_d = "(".$data['variable_added_d'][$vid].")";
                                 }
-                                ?><span style="display:block;">Active <?=$date_d?></span><?php
+                                ?><span style="display:block;"><span class="fa fa-check wiki_activevar"></span> <em>Active <?=$date_d?></em></span><?php
                             }
                             if ($data['variable_status'][$vid] == "2") {
                                 $date_d = "";
                                 if(array_key_exists('variable_deprecated_d', $data) && !empty($data['variable_deprecated_d'][$vid])){
                                     $date_d = "(".$data['variable_deprecated_d'][$vid].")";
                                 }
-                                ?><span style="display:block;">Deprecated <?=$date_d?></span><?php
+                                ?><span style="display:block;"><em class='fa fa-exclamation-circle wiki_deprecated'></em> <em>Deprecated <?=$date_d?></em></span><?php
 
                             }
                         }else if (empty($data['variable_status'])) {

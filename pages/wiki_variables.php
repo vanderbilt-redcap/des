@@ -44,10 +44,10 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                         <?php
                         if (array_key_exists('table_status', $data)) {
                             if ($data['table_status'] == "2") {
-                                ?><span class="wiki_deprecated wiki_deprecated_draft_message">DEPRECATED</span><?php
+                                ?><span class="wiki_deprecated_draft_message"><span class="fa fa-exclamation-circle wiki_deprecated"></span> <em>Deprecated</em></span><?php
                             }
                             if ($data['table_status'] == "0") {
-                                ?><span class="wiki_draft wiki_deprecated_draft_message">DRAFT</span><?php
+                                ?><span class="wiki_deprecated_draft_message"><span class="fa fa-clock-o wiki_draft"></span> <em>Draft</em></span><?php
                             }
                         }
                         ?>
@@ -123,13 +123,13 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                                 if($draft == 'false') {//DEPRECATED
                                                     $variable_display = "display:none";
                                                 }
-                                                $variable_text = "<span class='wiki_draft'><em class='fa fa-clock-o'></em> <strong>DRAFT</strong></span><br/>";
+                                                $variable_text = "<span><em class='fa fa-clock-o wiki_draft'></em> <em>Draft</em></span><br/>";
                                                 $variable_class = "draft";
                                             }else if($data['variable_status'][$id] == "2"){
                                                 if($deprecated == 'false') {//DEPRECATED
                                                     $variable_display = "display:none";
                                                 }
-                                                $variable_text = "<span class='wiki_deprecated'><em class='fa fa-exclamation-circle'></em> <strong>DEPRECATED</strong></span><br/>";
+                                                $variable_text = "<span><em class='fa fa-exclamation-circle wiki_deprecated'></em> <em>Deprecated</em></span><br/>";
                                                 $variable_class = "deprecated";
 
                                                 if($data['variable_replacedby'][$id] != ""){
@@ -152,7 +152,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                         $required_text = '';
                                         if($data['variable_required'][$id][0] == '1'){
                                             $required_class = 'required_des';
-                                            $required_text="<div style='color:red'>*Required</div>";
+                                            $required_text="<div style='color:red'><em>*Required</em></div>";
                                         }
 
                                         $record_var_aux = empty($id) ? '1' : $id;

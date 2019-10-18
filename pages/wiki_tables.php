@@ -51,7 +51,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
 </div>
 <div class="container-fluid wiki">
     <div class='row' style=''>
-        <div class="col-md-12">
+        <div class="col-md-12" style="padding-bottom: 10px">
             <?php include('options/options.php'); ?>
             <br>
         </div>
@@ -79,13 +79,13 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
                                 $variable_class = "";
                                 if (array_key_exists('table_status', $data)) {
                                     if($data['table_status'] == "0"){//DRAFT
-                                        $variable_text = "<span class='wiki_draft'><em class='fa fa-clock-o'></em> <strong>DRAFT</strong></span><br/>";
+                                        $variable_text = "<span class=''><em class='fa fa-clock-o wiki_draft'></em> <em>Draft</em></span><br/>";
                                         $variable_class = "draft";
                                         if($draft == 'false') {
                                             $variable_display = "display:none";
                                         }
                                     }else if($data['table_status'] == "2"){
-                                        $variable_text = "<span class='wiki_deprecated'><em class='fa fa-exclamation-circle'></em> <strong>DEPRECATED</strong></span><br/>";
+                                        $variable_text = "<span class=''><em class='fa fa-exclamation-circle wiki_deprecated'></em> <em>Deprecated</em></span><br/>";
                                         $variable_class = "deprecated";
                                         if($deprecated == 'false') {//DEPRECATED
                                             $variable_display = "display:none";
@@ -97,7 +97,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
                                 $required_text = '';
                                 if($data['table_required'][0] == '1'){
                                     $required_class = 'required_des';
-                                    $required_text="<div style='color:red'>*Required</div>";
+                                    $required_text="<div style='color:red'><em>*Required</em></div>";
                                 }
 
                                 $record_var_aux = empty($data['record_id']) ? '1' : $data['record_id'];
