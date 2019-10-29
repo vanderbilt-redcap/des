@@ -24,21 +24,16 @@ function loadStatus(status,statvalue,option) {
             statvalue = "false";
         }
     }
-    console.log(status+": "+statvalue)
-    console.log("option:"+option)
-    if (statvalue != "" && statvalue != null && option == ''){
-        console.log("1")
+    if (statvalue != "" && statvalue != null && option == '' && $('.'+status).length > 0){
         statvalue = "false";
         $('.'+status).filter(function() {
             if($(this).css("display") == "none"){
-                console.log("3")
                 statvalue = "true";
                 $(this).show();
                 $("#"+status+"-icon").addClass("wiki_"+status);
                 $("#"+status+"_info").addClass("wiki_"+status+"_btn");
                 $("#"+status+"_info").removeClass("btn-default-reverse");
             } else{
-                console.log("4")
                 $(this).hide();
                 $("#"+status+"-icon").removeClass("wiki_"+status);
                 $("#"+status+"_info").removeClass("wiki_"+status+"_btn");
@@ -46,15 +41,12 @@ function loadStatus(status,statvalue,option) {
             }
         });
     }else{
-        console.log("2")
         if(statvalue == "true"){
-            console.log("5")
             $("."+status).show();
             $("#"+status+"-icon").addClass("wiki_"+status);
             $("#"+status+"_info").addClass("wiki_"+status+"_btn");
             $("#"+status+"_info").removeClass("btn-default-reverse");
         } else{
-            console.log("6")
             $("."+status).hide();
             $("#"+status+"-icon").removeClass("wiki_"+status);
             $("#"+status+"_info").removeClass("wiki_"+status+"_btn");
