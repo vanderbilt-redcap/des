@@ -23,16 +23,6 @@ if(empty($deprecated)){
 #We get the Tables and Variables information
 $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
 ?>
-<script>
-    $(document).ready(function() {
-        if($('#deprecated_info').is(':checked')){
-            $('.deprecated').show();
-        }
-        if($('#draft_info').is(':checked')){
-            $('.draft').show();
-        }
-    });
-</script>
 <br/>
 <br/>
 <div class="container-fluid wiki">
@@ -91,9 +81,8 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                         ?>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="padding-bottom: 10px">
                         <?php include('options/options.php'); ?>
-                        <br/>
                     </div>
                     <div class="col-md-12">
                         <div class="panel panel-default" >

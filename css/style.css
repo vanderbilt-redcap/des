@@ -262,6 +262,7 @@
 }
 
 /***DES Browser: WIKI***/
+button:focus {outline:0 !important;}
 .wiki{
     max-width: 1000px;
     float: left;
@@ -332,6 +333,11 @@
 .wiki_text_size{font-size: 16px;}
 .wiki_deprecated{color:#ff0000;}
 .wiki_draft{color:#e6b800;}
+.wiki_deprecated_btn,.wiki_draft_btn{
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad !important;
+}
 .wiki_activevar{color: #5cb85c;}
 .wiki_deprecated_draft_message{
     padding-left:20px;
