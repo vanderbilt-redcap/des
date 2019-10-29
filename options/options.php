@@ -13,13 +13,13 @@
     </script>
 
     <div style="float:right;padding-left:20px;">
-        <button href="#" id="deprecated_info" class="btn-default btn" onclick="loadStatus('deprecated','<?=$_SESSION['deprecated']?>','');" type="checkbox" name="deprecated_info">
-            <span class="fa fa-exclamation-circle" id="deprecated-icon"></span> Deprecated
+        <button href="#" id="deprecated_info" class="btn-default-reverse btn" onclick="loadStatus('deprecated','<?=$_SESSION['deprecated']?>','');" type="checkbox" name="deprecated_info">
+            <span class="fa fa-exclamation-circle" id="deprecated-icon"></span> Show Deprecated
         </button>
     </div>
     <div style="float:right;padding-left:20px;">
-        <button href="#" id="draft_info" class="btn-default btn" onclick="loadStatus('draft','<?=$_SESSION['draft']?>','');" type="checkbox" name="draft_info">
-            <span class="fa fa-clock-o" id="draft-icon"></span> Draft
+        <button href="#" id="draft_info" class="btn-default-reverse btn" onclick="loadStatus('draft','<?=$_SESSION['draft']?>','');" type="checkbox" name="draft_info">
+            <span class="fa fa-clock-o" id="draft-icon"></span> Show Draft
         </button>
     </div>
 </div>

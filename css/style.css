@@ -335,8 +335,17 @@ button:focus {outline:0 !important;}
 .wiki_draft{color:#e6b800;}
 .wiki_deprecated_btn,.wiki_draft_btn{
     color: #333;
+    background-color: #fff;
+    border-color: #ccc !important;
+}
+.btn-default-reverse{
+    color: #333;
     background-color: #e6e6e6;
-    border-color: #adadad !important;
+    border-color: #ccc !important;
+}
+.btn-default-reverse:hover {
+    color: #333;
+    background-color: #ccc;
 }
 .wiki_activevar{color: #5cb85c;}
 .wiki_deprecated_draft_message{
