@@ -40,20 +40,22 @@ function loadStatus(status,statvalue,option) {
                 $("#"+status+"_info").addClass("btn-default-reverse");
             }
         });
+    }else if(option == '0' && statvalue == ""){
     }else{
-        if(statvalue == "true"){
+        if($('#'+status+'_info').hasClass('btn-default-reverse') || (option == '0' && statvalue == "true")){
+            statvalue = "true";
             $("."+status).show();
             $("#"+status+"-icon").addClass("wiki_"+status);
             $("#"+status+"_info").addClass("wiki_"+status+"_btn");
             $("#"+status+"_info").removeClass("btn-default-reverse");
         } else{
+            statvalue = "false";
             $("."+status).hide();
             $("#"+status+"-icon").removeClass("wiki_"+status);
             $("#"+status+"_info").removeClass("wiki_"+status+"_btn");
             $("#"+status+"_info").addClass("btn-default-reverse");
         }
     }
-
     if(option == '') {
         $.ajax({
             type: "POST",
