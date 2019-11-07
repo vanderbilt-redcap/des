@@ -98,12 +98,15 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
                                 if($data['table_required'][0] == '1'){
                                     $required_class = 'required_des';
                                     $required_text="<div style='color:red'><em>*Required</em></div>";
+                                    if($variable_class != ""){
+                                        $variable_class = " ".$variable_class;
+                                    }
                                 }
 
                                 $record_var_aux = empty($data['record_id']) ? '1' : $data['record_id'];
                                 $definition = mb_convert_encoding(array_key_exists('table_definition',$data)?$data['table_definition']:"",'UTF-8');
                                 $url = "index.php?pid=".DES_DATAMODEL."&tid=".$data['record_id']."&page=variables";
-                                echo '<tr class="'.$required_class." ".$variable_class.'" style="' . $variable_display . '" id="'.$record_var_aux.'_row">'.
+                                echo '<tr class="'.$required_class.$variable_class.'" style="' . $variable_display . '" id="'.$record_var_aux.'_row">'.
                                     '<td class="'.$required_class.'">'.
                                     '<a href="'.$url.'" id="tables_link" onclick="addURL(\''.$url.'\', \'&deprecated=\'+$(\'#deprecated_info\').is(\':checked\')+\'&draft=\'+$(\'#draft_info\').is(\':checked\'));">'.$data['table_name'].'</a>'.
                                     '</td>'.

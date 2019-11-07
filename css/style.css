@@ -161,8 +161,12 @@
     transform: rotate(180deg);
 }
 .draft{
-    background-color: #ffffe6;
+    background-color: #ffffe6 !important;
     border-color: #ffffe6 !important;
+}
+.deprecated{
+    background-color: #ffe6e6 !important;
+    border-color: #ffe6e6 !important;
 }
 .fields_loaded{
     float:right;
