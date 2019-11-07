@@ -18,45 +18,28 @@ function addURL(url, parameter)
 
 function loadStatus(status,statvalue,option) {
     if(option == ''){
-        if(statvalue == "false"){
-            statvalue = "true";
-        }else{
+        if (statvalue != "" && statvalue != null && $('.'+status).length > 0){
             statvalue = "false";
-        }
-    }
-    if (statvalue != "" && statvalue != null && option == '' && $('.'+status).length > 0){
-        statvalue = "false";
-        $('.'+status).filter(function() {
-            if($(this).css("display") == "none"){
-                statvalue = "true";
-                $(this).show();
-                $("#"+status+"-icon").addClass("wiki_"+status);
-                $("#"+status+"_info").addClass("wiki_"+status+"_btn");
-                $("#"+status+"_info").removeClass("btn-default-reverse");
-            } else{
-                $(this).hide();
-                $("#"+status+"-icon").removeClass("wiki_"+status);
-                $("#"+status+"_info").removeClass("wiki_"+status+"_btn");
-                $("#"+status+"_info").addClass("btn-default-reverse");
-            }
-        });
-    }else if(option == '0' && statvalue == ""){
-    }else{
-        if($('#'+status+'_info').hasClass('btn-default-reverse') || (option == '0' && statvalue == "true")){
-            statvalue = "true";
-            $("."+status).show();
-            $("#"+status+"-icon").addClass("wiki_"+status);
-            $("#"+status+"_info").addClass("wiki_"+status+"_btn");
-            $("#"+status+"_info").removeClass("btn-default-reverse");
+            $('.'+status).filter(function() {
+                if($(this).css("display") == "none"){
+                    statvalue = "true";
+                    $(this).show();
+                    $("#"+status+"-icon").addClass("wiki_"+status);
+                    $("#"+status+"_info").addClass("wiki_"+status+"_btn");
+                    $("#"+status+"_info").removeClass("btn-default-reverse");
+                } else{
+                    $(this).hide();
+                    $("#"+status+"-icon").removeClass("wiki_"+status);
+                    $("#"+status+"_info").removeClass("wiki_"+status+"_btn");
+                    $("#"+status+"_info").addClass("btn-default-reverse");
+                }
+            });
+        }else if($('#'+status+'_info').hasClass('btn-default-reverse') && (statvalue == "" || statvalue == null)){
+            statvalue = loadStatusButton(status,"true");
         } else{
-            statvalue = "false";
-            $("."+status).hide();
-            $("#"+status+"-icon").removeClass("wiki_"+status);
-            $("#"+status+"_info").removeClass("wiki_"+status+"_btn");
-            $("#"+status+"_info").addClass("btn-default-reverse");
+            statvalue = loadStatusButton(status,"false");
         }
-    }
-    if(option == '') {
+
         $.ajax({
             type: "POST",
             url: "options/changeStatus.php",
@@ -69,5 +52,37 @@ function loadStatus(status,statvalue,option) {
 
             }
         });
+    }else if(option == "0"){
+        if(statvalue == "" || statvalue == null){
+            if($('#'+status+'_info').hasClass('btn-default-reverse')){
+                statvalue = "false";
+            }
+        }else{
+            if($('#'+status+'_info').hasClass('btn-default-reverse') && (statvalue == "" || statvalue == null)){
+                statvalue = "false";
+            }
+
+            if($('#'+status+'_info').hasClass('btn-default-reverse') && ((option == "0" && statvalue == "true") || (option == "" && statvalue == "false"))){
+                statvalue = loadStatusButton(status,"true");
+            } else{
+                statvalue = loadStatusButton(status,"false");
+
+            }
+        }
     }
+}
+
+function loadStatusButton(status, option){
+    if(option == "true"){
+        $("."+status).show();
+        $("#"+status+"-icon").addClass("wiki_"+status);
+        $("#"+status+"_info").addClass("wiki_"+status+"_btn");
+        $("#"+status+"_info").removeClass("btn-default-reverse");
+    }else{
+        $("."+status).hide();
+        $("#"+status+"-icon").removeClass("wiki_"+status);
+        $("#"+status+"_info").removeClass("wiki_"+status+"_btn");
+        $("#"+status+"_info").addClass("btn-default-reverse");
+    }
+    return option;
 }
