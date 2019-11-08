@@ -86,3 +86,26 @@ function loadStatusButton(status, option){
     }
     return option;
 }
+
+function loadSearch(varsearch){
+    $('#seatch-title').html("Search results for <em>"+varsearch+"</em>");
+    $.ajax({
+        type: "POST",
+        url: "options/search.php",
+        data: "&varsearch=" + varsearch
+        ,
+        error: function (xhr, status, error) {
+            alert(xhr.responseText);
+        },
+        success: function (result) {
+            $('#loadSearch').html(jQuery.parseJSON(result));
+
+            var table = $('#table_search').dataTable({"pageLength": 10,"order": [0, "desc"]});
+
+            $('#table_search_filter,#table_search_length').appendTo( '#options_wrapper' );
+            $('#table_search_info,#table_search_paginate').appendTo( '#options_wrapper_bottom' );
+            $('#table_search_filter').attr( 'style','float: right;padding-top: 5px;' );
+            $('#table_search_length').attr( 'style','float: left;padding-top: 15px;' );
+        }
+    });
+}

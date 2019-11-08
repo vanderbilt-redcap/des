@@ -49,12 +49,14 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
        }
        ?>
 </div>
-<div class="container-fluid wiki">
-    <div class='row' style=''>
-        <div class="col-md-12" style="padding-bottom: 10px">
+<div class="wiki_main">
+    <div class='row' style='padding-bottom: 10px'>
+        <div class="col-md-12">
             <?php include('options/options.php'); ?>
             <br>
         </div>
+    </div>
+    <div class='row'>
         <div class="col-md-12">
             <div class="panel panel-default" >
                 <div class="panel-heading">

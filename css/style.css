@@ -271,6 +271,9 @@ button:focus {outline:0 !important;}
     max-width: 1000px;
     float: left;
 }
+.wiki_main{
+    max-width: 1000px;
+}
 .wiki_container{
     margin:auto;
     font-size:13px;

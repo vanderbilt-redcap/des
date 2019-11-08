@@ -26,7 +26,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
 <br/>
 <br/>
 <div class="container-fluid wiki">
-    <div class='row' style=''>
+    <div class='row'>
             <?PHP foreach( $dataTable as $data ){
                    if(!empty($data['record_id'])) {?>
                     <div class="col-md-12">

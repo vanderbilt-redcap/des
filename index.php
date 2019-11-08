@@ -62,14 +62,15 @@ $settings = $RecordSetSettings->getDetails()[0];
         if( !array_key_exists('page', $_REQUEST) )
         {
             include('pages/wiki_tables.php');
-        }
-        if( array_key_exists('page', $_REQUEST) && $_REQUEST['page'] === 'variables' )
+        }else if( array_key_exists('page', $_REQUEST) && $_REQUEST['page'] === 'variables' )
         {
             include('pages/wiki_variables.php');
-        }
-        if( array_key_exists('page', $_REQUEST) && $_REQUEST['page'] === 'variableInfo' )
+        }else if( array_key_exists('page', $_REQUEST) && $_REQUEST['page'] === 'variableInfo' )
         {
             include('pages/wiki_variable_info.php');
+        }else if( array_key_exists('page', $_REQUEST) && $_REQUEST['page'] === 'search' )
+        {
+            include('pages/wiki_variable_search.php');
         }
          ?>
     </div>
