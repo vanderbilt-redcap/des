@@ -100,7 +100,7 @@ function loadSearch(varsearch){
         success: function (result) {
             $('#loadSearch').html(jQuery.parseJSON(result));
 
-            var table = $('#table_search').dataTable({"pageLength": 10,"order": [0, "desc"]});
+            $('#table_search').dataTable({"pageLength": 10,"bDestroy": true});
 
             $('#table_search_filter,#table_search_length').appendTo( '#options_wrapper' );
             $('#table_search_info,#table_search_paginate').appendTo( '#options_wrapper_bottom' );

@@ -1,7 +1,6 @@
 <script>
     $(document).ready(function() {
 
-
         $('#searchForm').on('submit', function(event) {
             loadSearch($('#varsearch').val());
             event.preventDefault();
