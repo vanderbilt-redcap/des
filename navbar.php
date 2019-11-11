@@ -1,6 +1,11 @@
-
+<?php
+$style = '';
+if(array_key_exists('page',$_REQUEST)){
+    $style = 'padding-bottom:10px;';
+}
+?>
     <div>
-        <div class="nav nav-pills" style="margin-top: 100px;padding-left: 60px;">
+        <div class="nav nav-pills" style="margin-top: 100px;padding-left: 60px;<?=$style?>">
             <?PHP
             $active = "";
             $path = "";
@@ -9,7 +14,7 @@
             }
             ?>
             <?php if( array_key_exists('page', $_REQUEST)){?>
-            <a href="index.php?pid=<?= DES_DATAMODEL; ?>" <?=$active?> onclick="addURL('index.php?pid=<?= DES_DATAMODEL; ?>', '&deprecated='+$('#deprecated_info').is(':checked')+'&draft='+$('#draft_info').is(':checked'))" style="padding-top: 40px;">DES Main</a>
+            <a href="index.php?pid=<?= DES_DATAMODEL; ?>" <?=$active?> style="padding-top: 40px;">DES Main</a>
             <?php } ?>
             <?php if( array_key_exists('page', $_REQUEST) && ($_REQUEST['page'] === 'variables' || $_REQUEST['page'] === 'variableInfo')){
                 $tid = $_REQUEST['tid'];
@@ -26,7 +31,7 @@
                             $url = "index.php?pid=".DES_DATAMODEL."&tid=".$data['record_id']."&page=variables";
                             ?>
                             <span> > </span>
-                            <a href="<?=$url?>" <?=$active?> onclick="addURL('<?=$url?>', '&deprecated='+$('#deprecated_info').is(':checked')+'&draft='+$('#draft_info').is(':checked'))"><?= $data['table_name'] ?></a>
+                            <a href="<?=$url?>" <?=$active?>><?= $data['table_name'] ?></a>
                         <?php }
 
                         if ($_REQUEST['page'] === 'variableInfo') {
@@ -34,7 +39,7 @@
                             $url = "index.php?pid=".DES_DATAMODEL."&tid=".$tid ."&vid=". $vid ."&page=variableInfo";
                             ?>
                             <span> > </span>
-                           <a href="<?=$url?>" <?=$active?> onclick="addURL('<?=$url?>', '&deprecated='+$('#deprecated_info').is(':checked')+'&draft='+$('#draft_info').is(':checked'))"><?= $data['variable_name'][$vid] ?></a>
+                           <a href="<?=$url?>" <?=$active?>><?= $data['variable_name'][$vid] ?></a>
                         <?php }
                     }
                 }

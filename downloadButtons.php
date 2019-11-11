@@ -1,11 +1,9 @@
-<div id="loader" style="display:none;"></div>
-
 <div class="col-md-12 container-fluid wiki_container">
-    <div class="col-md-12 wiki wiki_text wiki_text_size">
+    <div class="col-md-12 wiki wiki_text wiki_text_size" style="padding-top: 0;">
         <div style="display: inline-block;float: left;">
-            <div id="load_message" class="alert alert-info fade in col-md-12" style="display: none">
-                <div id="loader-mini" style="float:left"></div>
-                <div style="float:left;padding-left: 20px;line-height: 50px;">Please wait while the file is generated. It may take a few minutes.</div>
+            <div id="load_message" class="alert alert-info fade in col-md-12" style="display:none">
+                <span class="fa fa-spin fa-spinner" style="float: left;line-height: 50px;"></span>
+                <div style="float:left;padding-left: 10px;line-height: 50px;">Please wait while the file is generated. It may take a few minutes.</div>
             </div>
         </div>
     <div style="display: inline-block;float: right;">

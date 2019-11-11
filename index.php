@@ -74,12 +74,6 @@ $settings = $RecordSetSettings->getDetails()[0];
         }
          ?>
     </div>
-
-    <br/>
-    <div class="divModalLoading">
-        <div class="modalLoading" style="">
-            <img src="/redcap_v6.14.1/Resources/images/progress.gif" alt="Loading..."/>
-        </div>
-    </div>
+<br/>
 </body>
 </html>

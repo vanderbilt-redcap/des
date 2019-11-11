@@ -150,7 +150,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                         $url = 'index.php?pid=' . DES_DATAMODEL . '&tid=' . $tid . '&vid=' . $record_var . '&page=variableInfo';
                                         echo '<tr class="'.$required_class." ".$variable_class.'" style="' . $variable_display . '"" id="'.$record_var_aux.'_row">' .
                                             '<td style="width:130px">' .
-                                            '<a href="'.$url.'" onclick="addURL(\''.$url.'\', \'&deprecated=\'+$(\'#deprecated_info\').is(\':checked\')+\'&draft=\'+$(\'#draft_info\').is(\':checked\'));">' . $name . '</a>' .
+                                            '<a href="'.$url.'">' . $name . '</a>' .
                                             '</td>' .
                                             '<td style="width:350px">';
 

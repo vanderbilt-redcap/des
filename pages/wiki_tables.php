@@ -110,7 +110,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
                                 $url = "index.php?pid=".DES_DATAMODEL."&tid=".$data['record_id']."&page=variables";
                                 echo '<tr class="'.$required_class.$variable_class.'" style="' . $variable_display . '" id="'.$record_var_aux.'_row">'.
                                     '<td class="'.$required_class.'">'.
-                                    '<a href="'.$url.'" id="tables_link" onclick="addURL(\''.$url.'\', \'&deprecated=\'+$(\'#deprecated_info\').is(\':checked\')+\'&draft=\'+$(\'#draft_info\').is(\':checked\'));">'.$data['table_name'].'</a>'.
+                                    '<a href="'.$url.'" id="tables_link">'.$data['table_name'].'</a>'.
                                     '</td>'.
                                     '<td id="'.$record_var_aux.'_description">'.$required_text.$variable_text.$definition.'</td>'.
                                     '</tr>';
