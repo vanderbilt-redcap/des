@@ -142,7 +142,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                                     if($counter % 2){
                                                         $style = "text-align: center";
                                                     }
-                                                    $value = mb_convert_encoding($value,'UTF-8');
+                                                    $value = mb_convert_encoding($value,'UTF-8','HTML-ENTITIES','HTML-ENTITIES');
                                                     if($header == 0){
                                                         ?>
                                                         <td class=""><?=$col;?></td>

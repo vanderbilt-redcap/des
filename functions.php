@@ -237,7 +237,7 @@ function getHtmlCodesTable($code_file,$htmlCodes,$id){
             $htmlCodes .= '<tr style="border: 1px solid #000;">';
             foreach ($content as $col => $value) {
                 #Convert to UTF-8 to avoid weird characters
-                $value = mb_convert_encoding($value,'UTF-8');
+                $value = mb_convert_encoding($value,'UTF-8','HTML-ENTITIES');
                 if ($header == 0) {
                     $htmlCodes .= '<td>' . $col . '</td>';
                 } else {

@@ -106,7 +106,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
                                 }
 
                                 $record_var_aux = empty($data['record_id']) ? '1' : $data['record_id'];
-                                $definition = mb_convert_encoding(array_key_exists('table_definition',$data)?$data['table_definition']:"",'UTF-8');
+                                $definition = mb_convert_encoding(array_key_exists('table_definition',$data)?$data['table_definition']:"",'UTF-8','HTML-ENTITIES');
                                 $url = "index.php?pid=".DES_DATAMODEL."&tid=".$data['record_id']."&page=variables";
                                 echo '<tr class="'.$required_class.$variable_class.'" style="' . $variable_display . '" id="'.$record_var_aux.'_row">'.
                                     '<td class="'.$required_class.'">'.

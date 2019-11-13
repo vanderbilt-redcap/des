@@ -43,7 +43,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                         ?>
                     </div>
                     <div class="col-md-12 wiki_text wiki_text_size">
-                        <span style="display:block;"><?PHP echo mb_convert_encoding($data['table_definition'],'UTF-8'); ?></span>
+                        <span style="display:block;"><?PHP echo mb_convert_encoding($data['table_definition'],'UTF-8','HTML-ENTITIES'); ?></span>
                         <span style="display:block;"><i><?PHP echo $data['text_top']; ?></i></span>
                     </div>
 
@@ -206,7 +206,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                                             }
                                                             foreach ($content as $col=>$value) {
                                                                 //Convert to UTF-8 to avoid weird characters
-                                                                $value = mb_convert_encoding($value,'UTF-8');
+                                                                $value = mb_convert_encoding($value,'UTF-8','HTML-ENTITIES');
                                                                 if($header == 0){
                                                                     echo '<td class="code_modal_td">'.$col.'</td>';
                                                                 }else{
@@ -231,7 +231,7 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                             }
                                         }
                                         echo '</td><td id="'.$record_var_aux.'_description"><div style="padding-bottom: 8px;padding-top: 8px">'.$required_text;
-                                        echo "<div>".$variable_text.mb_convert_encoding($data['description'][$id], 'UTF-8')."</div>";
+                                        echo "<div>".$variable_text.mb_convert_encoding($data['description'][$id], 'UTF-8','HTML-ENTITIES')."</div>";
                                         if (!empty($data['description_extra'][$id])) {
                                             echo "<div><i>" . $data['description_extra'][$id] . "</i></div>";
                                         }
