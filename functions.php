@@ -251,9 +251,77 @@ function getHtmlCodesTable($code_file,$htmlCodes,$id){
     return $htmlCodes;
 }
 
-function getHtmlCodesTableArrayExcel()
+function getHtmlTableCodesTableArrayExcel($dataTable){
+    $data_array = array();
+    foreach ($dataTable as $data) {
+        if (!empty($data['record_id']) && $data['table_status'] == "1") {
+            $data_code_array = array();
+            foreach ($data['variable_order'] as $id=>$value) {
+                if($data['variable_status'][$id] == "1") {
+                    $data_code_array[0] = $data["table_name"];
+                    $data_code_array[1] = !array_key_exists($id, $data['variable_name']) ? $data['variable_name'][''] : $data['variable_name'][$id];
+
+                    $description = empty($data["description"][$id]) ? $data["description"][''] : $data["description"][$id];
+                    if (!empty($data['description_extra'][$id])) {
+                        $description .= "\n" . $data['description_extra'][$id];
+                    }
+
+                    if ($data['has_codes'][$id] == '0') {
+                        if (!empty($data['code_text'][$id])) {
+                            $data_code_array[2] = $data['code_text'][$id];
+                            $data_code_array[3] = $description;
+                            array_push($data_array, $data_code_array);
+                        }
+                    } else if ($data['has_codes'][$id] == '1') {
+                        if (!empty($data['code_list_ref'][$id])) {
+                            $codeformat = getProjectInfoArray(DES_CODELIST, array('record_id' => $data['code_list_ref'][$id]), 'simple');
+                            if ($codeformat['code_format'] == '1') {
+                                $codeOptions = empty($codeformat['code_list']) ? $data['code_text'][$id] : explode(" | ", $codeformat['code_list']);
+                                foreach ($codeOptions as $option) {
+                                    $var_codes = explode('=', $option);
+                                    $data_code_array[2] = trim($var_codes[0]);
+                                    $data_code_array[3] = trim($var_codes[1]);
+                                    array_push($data_array, $data_code_array);
+                                }
+                            } else {
+                                if ($codeformat['code_format'] == '3') {
+                                    if (array_key_exists('code_file', $codeformat) && $data['codes_print'][$id] == '1') {
+                                        $data_array = getHtmlCodesTableArrayExcel($data_array, $data_code_array, $codeformat['code_file']);
+                                    }
+                                } else if ($codeformat['code_format'] == '4') {
+                                    $data_code_array[2] = 'https://bioportal.bioontology.org/ontologies/' . $codeformat['code_ontology'];
+                                    array_push($data_array, $data_code_array);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return $data_array;
+}
+
+function getHtmlCodesTableArrayExcel($data_array,$data_code_array,$code_file)
 {
-    $codeformat = getProjectInfoArray(DES_CODELIST);
+    $csv = parseCSVtoArray($code_file);
+    if (!empty($csv)) {
+        foreach ($csv as $header => $content) {
+            if ($header != 0) {
+//                $data_code_array[2] = $code_file['list_name'];
+                $index = 2;
+                foreach ($content as $col => $value) {
+                    #Convert to UTF-8 to avoid weird characters
+                    $value = mb_convert_encoding($value, 'UTF-8', 'HTML-ENTITIES');
+                    $data_code_array[$index] = $value;
+                    $index++;
+                }
+                array_push($data_array,$data_code_array);
+            }
+        }
+    }
+
+    /*$codeformat = getProjectInfoArray(DES_CODELIST);
     $codes_all = array();
     foreach ($codeformat as $id=>$code_file) {
         $csv = parseCSVtoArray($code_file['code_file']);
@@ -273,8 +341,8 @@ function getHtmlCodesTableArrayExcel()
                 }
             }
         }
-    }
-    return $codes_all;
+    }*/
+    return $data_array;
 }
 
 /***PHP SPREADSHEET***/

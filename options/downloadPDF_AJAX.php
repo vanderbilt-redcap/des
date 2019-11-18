@@ -11,10 +11,13 @@ $RecordSetSettings= new \Plugin\RecordSet($projectDESSettings, array(\Plugin\Rec
 $settings = $RecordSetSettings->getDetails()[0];
 
 $option = $_REQUEST['option'];
+$deprecated = $_REQUEST['deprecated'];
+$draft = $_REQUEST['draft'];
 
+$dataTable = getTablesInfo(DES_DATAMODEL);
 if($option == "2"){
 
-    $requested_tables = getHtmlCodesTableArrayExcel();
+    $requested_tables = getHtmlTableCodesTableArrayExcel($dataTable);
 
     #EXEL SHEET
     $filename = "code_list_ " . date("F Y") . ".xlsx";
@@ -34,13 +37,13 @@ if($option == "2"){
 
     ///MULTIREG CONCEPTS///
     #SECTION HEADERS
-    $section_headers = array(0=>"Code List Name",1=>"Code",2=>"Label");
-    $section_headers_leters = array(0=>'A',1=>'B',2=>'C');
-    $section_headers_width = array(0=>'30',1=>'20',2=>'40');
-    $section_centered = array(0=>'0',1=>'1',2=>'0');
+    $section_headers = array(0=>"Table",1=>"Variable",2=>"Code",3=>"Label");
+    $section_headers_leters = array(0=>'A',1=>'B',2=>'C',3=>'D');
+    $section_headers_width = array(0=>'20',1=>'30',2=>'20',3=>'40');
+    $section_centered = array(0=>'0',1=>'0',2=>'1',3=>'0');
     $row_number = 1;
     $sheet = getExcelHeaders($sheet,$section_headers,$section_headers_leters,$section_headers_width,$row_number);
-    $sheet->setAutoFilter('A1:C1');
+    $sheet->setAutoFilter('A1:D1');
     $row_number++;
     $sheet = getExcelData($sheet,$requested_tables,$section_headers,$section_headers_leters,$section_centered,$row_number,"1");
 
@@ -54,7 +57,6 @@ if($option == "2"){
     $writer->save("php://output");
 
 }else{
-    $dataTable = getTablesInfo(DES_DATAMODEL);
     if(!empty($dataTable)) {
         # Get selected rows
         $tableHtml = generateTablesHTML_pdf($dataTable,$option);
