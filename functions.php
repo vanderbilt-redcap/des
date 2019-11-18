@@ -253,6 +253,8 @@ function getHtmlCodesTable($code_file,$htmlCodes,$id){
 
 function getHtmlTableCodesTableArrayExcel($dataTable){
     $data_array = array();
+    $ProjectTable = new \Plugin\Project(DES_DATAMODEL);
+    $dataFormat = \Plugin\Project::convertEnumToArray($ProjectTable->getMetadata('data_format')->getElementEnum());
     foreach ($dataTable as $data) {
         if (!empty($data['record_id']) && $data['table_status'] == "1") {
             $data_code_array = array();
@@ -266,13 +268,7 @@ function getHtmlTableCodesTableArrayExcel($dataTable){
                         $description .= "\n" . $data['description_extra'][$id];
                     }
 
-                    if ($data['has_codes'][$id] == '0') {
-                        if (!empty($data['code_text'][$id])) {
-                            $data_code_array[2] = $data['code_text'][$id];
-                            $data_code_array[3] = $description;
-                            array_push($data_array, $data_code_array);
-                        }
-                    } else if ($data['has_codes'][$id] == '1') {
+                    if ($data['has_codes'][$id] == '1') {
                         if (!empty($data['code_list_ref'][$id])) {
                             $codeformat = getProjectInfoArray(DES_CODELIST, array('record_id' => $data['code_list_ref'][$id]), 'simple');
                             if ($codeformat['code_format'] == '1') {
@@ -294,6 +290,10 @@ function getHtmlTableCodesTableArrayExcel($dataTable){
                                 }
                             }
                         }
+                    } else if (!empty($data['code_text'][$id])) {
+                        $data_code_array[2] = $dataFormat[$data['data_format'][$id]];
+                        $data_code_array[3] = $description;
+                        array_push($data_array, $data_code_array);
                     }
                 }
             }

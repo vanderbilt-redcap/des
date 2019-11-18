@@ -13,7 +13,7 @@
     </script>
 
     <div style="float:left;font-size: 16px;text-decoration: underline;position: relative;top: 16px;left: 3px;">
-        <a href="index.php?page=search">Search variable</a>
+        <a href="index.php?page=search">Variable Search</a>
     </div>
     <div style="float:right;padding-left:20px;">
         <button href="#" id="deprecated_info" class="btn-default-reverse btn" onclick="loadStatus('deprecated','<?=$_SESSION['deprecated']?>','');" type="checkbox" name="deprecated_info">

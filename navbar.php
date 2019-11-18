@@ -43,6 +43,8 @@ if(array_key_exists('page',$_REQUEST)){
                         <?php }
                     }
                 }
+            }else if($_REQUEST['page'] == 'search'){
+                echo "<span> > </span><a href='index.php?pid=".DES_DATAMODEL."&page=search' class='wiki_active'>Variable search</a>";
             }?>
 
     </div>

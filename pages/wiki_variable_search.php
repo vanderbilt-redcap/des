@@ -1,6 +1,5 @@
 <script>
     $(document).ready(function() {
-
         $('#searchForm').on('submit', function(event) {
             loadSearch($('#varsearch').val());
             event.preventDefault();
@@ -11,7 +10,7 @@
 <div class="container-fluid col-md-12 wiki">
     <div class='row'>
         <div>
-            <h3>Search Variable</h3>
+            <h3>Variable Search</h3>
             <p>Enter the variable name to search for it and obtain all information related to that variable.</p>
         </div>
         <div style="padding-top: 10px;display: inline-block">
@@ -19,7 +18,7 @@
                 <div class="form-group">
                     <input class="form-control" id="varsearch" placeholder="insert variable name">
                 </div>
-                <button type="submit" class="btn btn-default">Search variable</button>
+                <button type="submit" class="btn btn-default">Search</button>
             </form>
         </div>
     </div>

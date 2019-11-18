@@ -88,6 +88,10 @@ function loadStatusButton(status, option){
 }
 
 function loadSearch(varsearch){
+    $('#table_search').dataTable().fnDestroy();
+    $('#table_search_filter,#table_search_length').html('');
+    $('#table_search_info,#table_search_paginate').html('');
+
     $('#seatch-title').html("Search results for <em>"+varsearch+"</em>");
     $.ajax({
         type: "POST",
@@ -100,10 +104,11 @@ function loadSearch(varsearch){
         success: function (result) {
             $('#loadSearch').html(jQuery.parseJSON(result));
 
-            $('#table_search').dataTable({"pageLength": 10,"bDestroy": true});
+            $('#table_search').dataTable({"pageLength": 10});
 
             $('#table_search_filter,#table_search_length').appendTo( '#options_wrapper' );
             $('#table_search_info,#table_search_paginate').appendTo( '#options_wrapper_bottom' );
+
             $('#table_search_filter').attr( 'style','float: right;padding-top: 5px;' );
             $('#table_search_length').attr( 'style','float: left;padding-top: 15px;' );
         }
