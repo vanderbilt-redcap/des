@@ -45,7 +45,7 @@ if($option == "2"){
     $sheet = getExcelHeaders($sheet,$section_headers,$section_headers_leters,$section_headers_width,$row_number);
     $sheet->setAutoFilter('A1:D1');
     $row_number++;
-    $sheet = getExcelData($sheet,$requested_tables,$section_headers,$section_headers_leters,$section_centered,$row_number,"1");
+    $sheet = getExcelData($sheet,$requested_tables,$section_headers,$section_headers_leters,$section_centered,$row_number);
 
     #Rename sheet
     $sheet->setTitle('Codes');
@@ -58,9 +58,9 @@ if($option == "2"){
 
 }else{
     if(!empty($dataTable)) {
-        # Get selected rows
-        $tableHtml = generateTablesHTML_pdf($dataTable,$option);
-        $requested_tables = generateRequestedTablesList_pdf($dataTable,$option);
+        # Get selected rows;
+        $tableHtml = generateTablesHTML_pdf($dataTable,$draft,$deprecated);
+        $requested_tables = generateRequestedTablesList_pdf($dataTable,$draft,$deprecated);
     }
     #FIRST PAGE
     $first_page = "<tr><td align='center'>";
@@ -84,11 +84,6 @@ if($option == "2"){
         .$tableHtml
         ."</div></div>"
         . "</body></html>";
-
-    $text_option = "active_";
-    if($option == "0"){
-        $text_option = "all_";
-    }
 
     $filename = $settings['des_wkname']."_DES_".$text_option.date("Y-m-d_hi",time());
 

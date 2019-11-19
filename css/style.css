@@ -273,6 +273,7 @@ button:focus {outline:0 !important;}
 }
 .wiki_main{
     max-width: 1000px;
+    padding-left: 15px;
 }
 .wiki_container{
     margin:auto;

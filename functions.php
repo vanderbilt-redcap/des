@@ -97,51 +97,66 @@ function array_sort_by_column(&$arr, $col, $dir = SORT_ASC) {
  * @param $fieldsSelected, the selected fields
  * @return string, the html content
  */
-function generateTablesHTML_pdf($dataTable,$mode){
+function generateTablesHTML_pdf($dataTable,$draft,$deprecated){
     $tableHtml = "";
     $table_counter = 0;
     foreach ($dataTable as $data) {
-        if (!empty($data['record_id']) && (($mode == '1' && ($data['table_status'] != "0" && $data['table_status'] != "2")) || $mode == '0')) {
+        if (!empty($data['record_id'])) {
             $found = false;
             $htmlCodes = '';
-            foreach ($data['variable_order'] as $id=>$value) {
-                    $record_varname = !array_key_exists($id,$data['variable_name'])?$data['variable_name']['']:$data['variable_name'][$id];
+            if($data['table_status'] == "1" || !array_key_exists("table_status",$data) || ($data['table_status'] == "2" && $deprecated == "true") || ($data['table_status'] == "0" && $draft == "true")) {
+                foreach ($data['variable_order'] as $id => $value) {
+                    $record_varname = !array_key_exists($id, $data['variable_name']) ? $data['variable_name'][''] : $data['variable_name'][$id];
                     $record_varname_id = empty($id) ? $data['record_id'] . '_1' : $data['record_id'] . '_' . $id;
                     #We add the new Header table tags
-                    if($found == false){
-                        $table_draft= "background-color: #f0f0f5";
-                        $table_draft_tdcolor= "background-color: lightgray";
-                        $table_draft_text= "";
+                    if ($found == false) {
+                        $table_draft = "background-color: #f0f0f5";
+                        $table_draft_tdcolor = "background-color: lightgray";
+                        $table_draft_text = "";
 
-                        switch ($data['table_category']){
-                            case 'main': $table_draft = "background-color: #FFC000"; break;
-                            case 'labs': $table_draft = "background-color: #9cce77"; break;
-                            case 'dis': $table_draft = "background-color: #87C1E9"; break;
-                            case 'meds': $table_draft = "background-color: #FB8153"; break;
-                            case 'preg': $table_draft = "background-color: #D7AEFF"; break;
-                            case 'meta': $table_draft = "background-color: #BEBEBE"; break;
-                            default:$table_draft = "background-color: #f0f0f5"; break;
+                        switch ($data['table_category']) {
+                            case 'main':
+                                $table_draft = "background-color: #FFC000";
+                                break;
+                            case 'labs':
+                                $table_draft = "background-color: #9cce77";
+                                break;
+                            case 'dis':
+                                $table_draft = "background-color: #87C1E9";
+                                break;
+                            case 'meds':
+                                $table_draft = "background-color: #FB8153";
+                                break;
+                            case 'preg':
+                                $table_draft = "background-color: #D7AEFF";
+                                break;
+                            case 'meta':
+                                $table_draft = "background-color: #BEBEBE";
+                                break;
+                            default:
+                                $table_draft = "background-color: #f0f0f5";
+                                break;
                         }
-                        if (array_key_exists('table_status', $data) ) {
-                            if($data['table_status'] == 0){
+                        if (array_key_exists('table_status', $data)) {
+                            if ($data['table_status'] == 0 && $draft == "true") {
                                 $table_draft = "background-color: #ffffcc;";
                             }
                             $table_draft_tdcolor = ($data['table_status'] == 0) ? "background-color: #999999;" : "background-color: lightgray";
-                            $table_draft_text = ($data['table_status'] == 0) ?'<span style="color: red;font-style: italic">(DRAFT)</span>':"";
+                            $table_draft_text = ($data['table_status'] == 0) ? '<span style="color: red;font-style: italic">(DRAFT)</span>' : "";
                         }
 
                         $breakLine = '';
-                        if($table_counter >0){
+                        if ($table_counter > 0) {
                             $breakLine = '<div style="page-break-before: always;"></div>';
                         }
                         $table_counter++;
 
-                        $htmlHeader = $breakLine.'<p style="'.$table_draft.'"><span style="font-size:16px"><strong><a href="'.APP_PATH_WEBROOT_FULL.'/plugins/des/index.php?tid='.$data['record_id'].'&page=variables" name="anchor_'.$data['record_id'].'" target="_blank" style="text-decoration:none">'.$data["table_name"].'</a></span> '.$table_draft_text.'</strong> - '.$data['table_definition'].'</p>';
-                        if (array_key_exists('text_top', $data) && !empty($data['text_top']) && $data['text_top'] != ""){
-                            $htmlHeader .= '<div  style="border-color: white;font-style: italic">'.$data["text_top"].'</div>';
+                        $htmlHeader = $breakLine . '<p style="' . $table_draft . '"><span style="font-size:16px"><strong><a href="' . APP_PATH_WEBROOT_FULL . '/plugins/des/index.php?tid=' . $data['record_id'] . '&page=variables" name="anchor_' . $data['record_id'] . '" target="_blank" style="text-decoration:none">' . $data["table_name"] . '</a></span> ' . $table_draft_text . '</strong> - ' . $data['table_definition'] . '</p>';
+                        if (array_key_exists('text_top', $data) && !empty($data['text_top']) && $data['text_top'] != "") {
+                            $htmlHeader .= '<div  style="border-color: white;font-style: italic">' . $data["text_top"] . '</div>';
                         }
                         $htmlHeader .= '<table border ="1px" style="border-collapse: collapse;width: 100%;">
-                        <tr style="'.$table_draft_tdcolor.'">
+                        <tr style="' . $table_draft_tdcolor . '">
                             <td style="padding: 5px;width:30%">Field</td>
                             <td style="padding: 5px">Format</td>
                             <td style="padding: 5px">Description</td>
@@ -150,22 +165,22 @@ function generateTablesHTML_pdf($dataTable,$mode){
                         $tableHtml .= $htmlHeader;
                     }
 
-                    if(($mode == '1' && ($data['variable_status'][$id] != "0" && $data['variable_status'][$id] != "2")) || $mode == '0') {
+                    if ($data['variable_status'][$id] == "1" || ($data['variable_status'][$id] == "2" && $deprecated == "true") || ($data['variable_status'][$id] == "0" && $draft == "true")) {
                         $variable_status = "";
                         $variable_text = "";
                         if (array_key_exists('variable_status', $data) && array_key_exists($id, $data['variable_status'])) {
-                            if ($data['variable_status'][$id] == "0") {//DRAFT
+                            if ($data['variable_status'][$id] == "0" && $draft == "true") {//DRAFT
                                 $variable_status = "style='background-color: #ffffe6;'";
                                 $variable_text = "<span style='color:red;font-weight:bold'>DRAFT</span><br/>";
-                            } else if ($data['variable_status'][$id] == "2") {//DEPRECATED
-                                $variable_status = "style=''";
+                            } else if ($data['variable_status'][$id] == "2" && $deprecated == "true") {//DEPRECATED
+                                $variable_status = "style='background-color: #ffe6e6;'";
                                 $variable_text = "<span style='color:red;font-weight:bold'>DEPRECATED</span><br/>";
                             }
                         }
 
                         #We add the Content rows
                         $tableHtml .= '<tr record_id="' . $record_varname_id . '" ' . $variable_status . '>
-                                <td style="padding: 5px"><a href="'.APP_PATH_WEBROOT_FULL.'/plugins/des/index.php?tid=' . $data['record_id'] . '&vid=' . $id . '&page=variableInfo" target="_blank" style="text-decoration:none">' . $record_varname . '</a></td>
+                                <td style="padding: 5px"><a href="' . APP_PATH_WEBROOT_FULL . '/plugins/des/index.php?tid=' . $data['record_id'] . '&vid=' . $id . '&page=variableInfo" target="_blank" style="text-decoration:none">' . $record_varname . '</a></td>
                                 <td style="width:160px;padding: 5px">';
 
                         $dataFormat = $dataTable['data_format_label'][$data['data_format'][$id]];
@@ -194,8 +209,8 @@ function generateTablesHTML_pdf($dataTable,$mode){
                                         $dataFormat .= "<a href='#codelist_" . $data['record_id'] . "' style='cursor:pointer;text-decoration: none'>See Code List</a><br/>";
                                         $htmlCodes .= "<table  border ='0' style='width: 100%;' record_id='" . $record_varname . "'><tr><td><a href='#' name='codelist_" . $data['record_id'] . "' style='text-decoration: none'><strong>" . $data['variable_name'][$id] . " code list:</strong></a><br/></td></tr></table>" . getHtmlCodesTable($codeformat['code_file'], $htmlCodes, $record_varname);
                                     }
-                                }else if ($codeformat['code_format'] == '4') {
-                                    $dataFormat = "<a href='https://bioportal.bioontology.org/ontologies/".$codeformat['code_ontology']."' target='_blank'>See Ontology Link</a><br/>";
+                                } else if ($codeformat['code_format'] == '4') {
+                                    $dataFormat = "<a href='https://bioportal.bioontology.org/ontologies/" . $codeformat['code_ontology'] . "' target='_blank'>See Ontology Link</a><br/>";
                                 }
                             }
                         }
@@ -207,16 +222,16 @@ function generateTablesHTML_pdf($dataTable,$mode){
 
                         $tableHtml .= $dataFormat . '</td><td style="padding: 5px">' . $variable_text . $description . '</td></tr>';
                     }
-
-            }
-            if($found) {
-                $tableHtml .= "</table><br/>";
-                if (array_key_exists('text_bottom', $data) && !empty($data['text_bottom']) && $data['text_bottom'] != ""){
-                    $tableHtml .= '<p  style="border-color: white;font-style: italic">'.$data["text_bottom"].'</p><br/>';
                 }
+                if ($found) {
+                    $tableHtml .= "</table><br/>";
+                    if (array_key_exists('text_bottom', $data) && !empty($data['text_bottom']) && $data['text_bottom'] != "") {
+                        $tableHtml .= '<p  style="border-color: white;font-style: italic">' . $data["text_bottom"] . '</p><br/>';
+                    }
+                }
+                if (!empty($htmlCodes))
+                    $tableHtml .= $htmlCodes . '<br/>';
             }
-            if(!empty($htmlCodes))
-                $tableHtml .= $htmlCodes.'<br/>';
         }
     }
     return $tableHtml;
@@ -363,9 +378,7 @@ function getExcelHeaders($sheet,$headers,$letters,$width,$row_number){
     return $sheet;
 }
 
-function getExcelData($sheet,$data_array,$headers,$letters,$section_centered,$row_number,$option){
-    $year = "";
-    $found = false;
+function getExcelData($sheet,$data_array,$headers,$letters,$section_centered,$row_number){
     $active_n_found = false;
     foreach ($data_array as $row => $data) {
         foreach ($headers as $index => $header) {
@@ -375,43 +388,15 @@ function getExcelData($sheet,$data_array,$headers,$letters,$section_centered,$ro
             if($section_centered[$index] == "1"){
                 $sheet->getStyle($letters[$index].$row_number)->getAlignment()->setHorizontal('center');
             }
-            if($option == "1"){
-                if ($index == "11" && $data[$index] == "N") {
-                    $active_n_found = true;
-                    $sheet->getStyle($letters[$index] . $row_number)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
-                    $sheet->getStyle($letters[$index].$row_number)->getFill()->getStartColor()->setARGB('e6e6e6');
-                }
-            }
-
-            if ($option == "2" && $index == "2"){
-                $year = $data[$index];
-                if(array_key_exists(($row+1),$data_array) && $year != $data_array[$row+1][$index]) {
-                    $found = true;
-                }
-            }
         }
-        if( $active_n_found && $option == '1'){
+        if( $active_n_found){
             foreach ($headers as $index=>$header) {
                 $sheet->getStyle($letters[$index] . $row_number)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
                 $sheet->getStyle($letters[$index].$row_number)->getFill()->getStartColor()->setARGB('e6e6e6');
             }
             $active_n_found = false;
         }
-//        $sheet->getRowDimension($row_number)->setRowHeight(60);
         $row_number++;
-
-        if($option == "2" && $found){
-            foreach ($headers as $index=>$header) {
-                $sheet->setCellValue($letters[$index].$row_number,"");
-                $sheet->getStyle($letters[$index] . $row_number)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                $sheet->getStyle($letters[$index] . $row_number)->getAlignment()->setWrapText(true);
-                $sheet->getStyle($letters[$index] . $row_number)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
-                $sheet->getStyle($letters[$index] . $row_number)->getFill()->getStartColor()->setARGB('ffffcc');
-            }
-//            $sheet->getRowDimension($row_number)->setRowHeight(10);
-            $row_number++;
-            $found = false;
-        }
     }
     return $sheet;
 }
@@ -421,10 +406,10 @@ function getExcelData($sheet,$data_array,$headers,$letters,$section_centered,$ro
  * @param $dataTable
  * @return string
  */
-function generateRequestedTablesList_pdf($dataTable,$mode){
+function generateRequestedTablesList_pdf($dataTable,$draft,$deprecated){
     $requested_tables = "<ol>";
     foreach ($dataTable as $data) {
-        if (!empty($data['record_id']) && (($mode == '1' && ($data['table_status'] != "0" && $data['table_status'] != "2")) || $mode == '0')) {
+        if (!empty($data['record_id']) && ($data['table_status'] == "1" || !array_key_exists("table_status",$data) || ($data['table_status'] == "2" && $deprecated == "true") || ($data['table_status'] == "0" && $draft == "true"))) {
             $requested_tables .= "<li><a href='#anchor_" . $data['record_id'] . "' style='text-decoration:none'>" . $data["table_name"] . "</a></li>";
         }
     }

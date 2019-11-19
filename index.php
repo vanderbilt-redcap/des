@@ -53,7 +53,11 @@ $settings = $RecordSetSettings->getDetails()[0];
     </style>
     <?php include('header.php'); ?>
     <?php include('navbar.php'); ?>
-    <?php include('downloadButtons.php'); ?>
+    <?php
+    if($_REQUEST['page'] !== 'search' && $_REQUEST['page'] !== 'variableInfo'  ) {
+        include('downloadButtons.php');
+    }
+    ?>
 </head>
 
 <body>
