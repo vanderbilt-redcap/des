@@ -2,7 +2,7 @@
     <div class="col-md-12 wiki wiki_text wiki_text_size" style="padding-top: 0;">
         <div style="display: inline-block;float: left;">
             <div id="load_message" class="alert alert-info fade in" style="display:none">
-                <span class="fa fa-spin fa-spinner"></span><span>Please wait while the file is generated. It may take a few minutes.</span>
+                <span class="fa fa-spin fa-spinner"></span> <span>Please wait while the file is generated. It may take a few minutes.</span>
             </div>
         </div>
         <div style="display: inline-block;float: right;">

@@ -18,7 +18,6 @@ $dataTable = getTablesInfo(DES_DATAMODEL);
 if($option == "2"){
 
     $requested_tables = getHtmlTableCodesTableArrayExcel($dataTable);
-
     #EXEL SHEET
     $filename = "code_list_ " . date("F Y") . ".xlsx";
 
@@ -55,7 +54,6 @@ if($option == "2"){
     header('Content-Type: application/vnd.ms-excel');
     header('Content-Disposition: attachment; filename="'.$filename.'"');
     $writer->save("php://output");
-
 }else{
     if(!empty($dataTable)) {
         # Get selected rows;

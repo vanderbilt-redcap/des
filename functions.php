@@ -271,7 +271,7 @@ function getHtmlTableCodesTableArrayExcel($dataTable){
     $ProjectTable = new \Plugin\Project(DES_DATAMODEL);
     $dataFormat = \Plugin\Project::convertEnumToArray($ProjectTable->getMetadata('data_format')->getElementEnum());
     foreach ($dataTable as $data) {
-        if (!empty($data['record_id']) && $data['table_status'] == "1") {
+        if (!empty($data['record_id']) && ($data['table_status'] == "1"  || !array_key_exists('table_status',$data))) {
             $data_code_array = array();
             foreach ($data['variable_order'] as $id=>$value) {
                 if($data['variable_status'][$id] == "1") {
@@ -289,7 +289,7 @@ function getHtmlTableCodesTableArrayExcel($dataTable){
                             if ($codeformat['code_format'] == '1') {
                                 $codeOptions = empty($codeformat['code_list']) ? $data['code_text'][$id] : explode(" | ", $codeformat['code_list']);
                                 foreach ($codeOptions as $option) {
-                                    $var_codes = explode('=', $option);
+                                    $var_codes = preg_split("/=[^'=']/", $option);
                                     $data_code_array[2] = trim($var_codes[0]);
                                     $data_code_array[3] = trim($var_codes[1]);
                                     array_push($data_array, $data_code_array);
