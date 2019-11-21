@@ -9,7 +9,7 @@
             </button>
             <div class="imgNavbar">
                 <a href="index.php" style="text-decoration: none;float:left">
-                    <img src='<?=getImageToDisplay($settings['des_logo']);?>' class='wiki_logo_img'  alt="<?=$settings['des_wkname']." Logo"?>">
+                    <img src='<?=getImageToDisplay($settings['des_logo']);?>' class='wiki_logo_img'  style="height:40px" alt="<?=$settings['des_wkname']." Logo"?>">
                 </a>
 
                 <a href="index.php" style="text-decoration: none;float:left" class="hub_header_title">
