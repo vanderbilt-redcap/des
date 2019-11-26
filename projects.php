@@ -1,8 +1,5 @@
 <?php
-#Harmonist -1: Projects
-define('PROD_DES_PROJECTS', 97989);
-define('TEST_DES_PROJECTS', 1202);
-define('DEV_DES_PROJECTS', 113);
+
 
 if(defined(ENVIRONMENT."_DES_PROJECTS")) {
     define("DES_PROJECTS", constant(ENVIRONMENT."_DES_PROJECTS"));

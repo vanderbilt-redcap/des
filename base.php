@@ -52,4 +52,5 @@ if(APP_PATH_WEBROOT[0] == '/'){
 }
 define('APP_PATH_WEBROOT_ALL',APP_PATH_WEBROOT_FULL.$APP_PATH_WEBROOT_ALL);
 
+include("configuration.php");
 include_once("projects.php");
