@@ -274,7 +274,7 @@ function getHtmlTableCodesTableArrayExcel($dataTable){
         if (!empty($data['record_id']) && ($data['table_status'] == "1"  || !array_key_exists('table_status',$data))) {
             $data_code_array = array();
             foreach ($data['variable_order'] as $id=>$value) {
-                if($data['variable_status'][$id] == "1") {
+                if($data['variable_status'][$id] == "1" && $data['has_codes'][$id] == "1") {
                     $data_code_array[0] = $data["table_name"];
                     $data_code_array[1] = !array_key_exists($id, $data['variable_name']) ? $data['variable_name'][''] : $data['variable_name'][$id];
 
@@ -289,7 +289,7 @@ function getHtmlTableCodesTableArrayExcel($dataTable){
                             if ($codeformat['code_format'] == '1') {
                                 $codeOptions = empty($codeformat['code_list']) ? $data['code_text'][$id] : explode(" | ", $codeformat['code_list']);
                                 foreach ($codeOptions as $option) {
-                                    $var_codes = preg_split("/=[^'=']/", $option);
+                                    $var_codes = preg_split("/((?<!['\"])=(?!['\"]))/", $option);
                                     $data_code_array[2] = trim($var_codes[0]);
                                     $data_code_array[3] = trim($var_codes[1]);
                                     array_push($data_array, $data_code_array);
