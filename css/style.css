@@ -148,6 +148,13 @@ button:focus {outline:0 !important;}
 .required_des td:nth-child(1){
     font-weight: bold;
 }
+.hub_header_title {
+    color: #0d347c;
+    font-weight: bold;
+    font-size: 25px;
+    text-decoration: none;
+    padding-top: 12px !important;
+}
 
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
     vertical-align: middle !important;
@@ -441,7 +448,7 @@ a[href]:after {
     }
     .hub_header_title{
         font-size: 18px;
-        line-height: 3.2em;
+        line-height: 2em;
     }
     .navbar-toggle{
         margin-top: 13px;
