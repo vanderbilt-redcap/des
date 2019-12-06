@@ -4,8 +4,8 @@ if(array_key_exists('page',$_REQUEST)){
     $style = 'padding-bottom:10px;';
 }
 ?>
-    <div>
-        <div class="nav nav-pills" style="margin-top: 100px;padding-left: 60px;<?=$style?>">
+    <div class="nav-padding-left">
+        <div class="nav nav-pills" style="margin-top: 100px;<?=$style?>">
             <?PHP
             $active = "";
             $path = "";
@@ -47,4 +47,5 @@ if(array_key_exists('page',$_REQUEST)){
                 echo "<span> > </span><a href='index.php?pid=".DES_DATAMODEL."&page=search' class='wiki_active'>Variable search</a>";
             }?>
 
+        </div>
     </div>
