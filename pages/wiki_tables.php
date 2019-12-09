@@ -50,10 +50,9 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid,"table_name");
        ?>
 </div>
 <div class="wiki_main">
-    <div class='row' style='padding-bottom: 10px'>
-        <div class="col-md-12">
+    <div class='row'>
+        <div class="col-md-12" style="padding-bottom: 10px">
             <?php include('options/options.php'); ?>
-            <br>
         </div>
     </div>
     <div class='row'>

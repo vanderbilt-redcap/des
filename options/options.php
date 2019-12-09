@@ -1,5 +1,5 @@
 
-<div>
+<div class="row">
 
     <script>
         var path = "<?=$path?>";
@@ -12,15 +12,15 @@
         });
     </script>
 
-    <div style="float:left;font-size: 16px;text-decoration: underline;position: relative;top: 16px;left: 3px;">
+    <div class="col-xs-12 option-search">
         <a href="index.php?page=search">Variable Search</a>
     </div>
-    <div style="float:right;padding-left:20px;">
+    <div class="option-btn col-xs-6">
         <button href="#" id="deprecated_info" class="btn-default-reverse btn" onclick="loadStatus('deprecated','<?=$_SESSION['deprecated_'.$settings['des_wkname']]?>','');" type="checkbox" name="deprecated_info">
             <span class="fa fa-exclamation-circle" id="deprecated-icon"></span> Show Deprecated
         </button>
     </div>
-    <div style="float:right;padding-left:20px;">
+    <div class="option-btn col-xs-6">
         <button href="#" id="draft_info" class="btn-default-reverse btn" onclick="loadStatus('draft','<?=$_SESSION['draft_'.$settings['des_wkname']]?>','');" type="checkbox" name="draft_info">
             <span class="fa fa-clock-o" id="draft-icon"></span> Show Draft
         </button>
