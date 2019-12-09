@@ -99,12 +99,15 @@ function array_sort_by_column(&$arr, $col, $dir = SORT_ASC) {
  */
 function generateTablesHTML_pdf($dataTable,$draft,$deprecated){
     $tableHtml = "";
+    $requested_tables = "";
     $table_counter = 0;
     foreach ($dataTable as $data) {
         if (!empty($data['record_id'])) {
             $found = false;
             $htmlCodes = '';
+            $requested_tables .= "<ol>";
             if($data['table_status'] == "1" || !array_key_exists("table_status",$data) || ($data['table_status'] == "2" && $deprecated == "true") || ($data['table_status'] == "0" && $draft == "true")) {
+                $requested_tables .= "<li><a href='#anchor_" . $data['record_id'] . "' style='text-decoration:none'>" . $data["table_name"] . "</a></li>";
                 foreach ($data['variable_order'] as $id => $value) {
                     $record_varname = !array_key_exists($id, $data['variable_name']) ? $data['variable_name'][''] : $data['variable_name'][$id];
                     $record_varname_id = empty($id) ? $data['record_id'] . '_1' : $data['record_id'] . '_' . $id;
@@ -232,9 +235,11 @@ function generateTablesHTML_pdf($dataTable,$draft,$deprecated){
                 if (!empty($htmlCodes))
                     $tableHtml .= $htmlCodes . '<br/>';
             }
+            $requested_tables .= "</ol>";
         }
     }
-    return $tableHtml;
+    $pdf_content = array(0=>$tableHtml,1=>$requested_tables);
+    return $pdf_content;
 }
 
 
@@ -323,7 +328,6 @@ function getHtmlCodesTableArrayExcel($data_array,$data_code_array,$code_file)
     if (!empty($csv)) {
         foreach ($csv as $header => $content) {
             if ($header != 0) {
-//                $data_code_array[2] = $code_file['list_name'];
                 $index = 2;
                 foreach ($content as $col => $value) {
                     #Convert to UTF-8 to avoid weird characters
@@ -335,28 +339,6 @@ function getHtmlCodesTableArrayExcel($data_array,$data_code_array,$code_file)
             }
         }
     }
-
-    /*$codeformat = getProjectInfoArray(DES_CODELIST);
-    $codes_all = array();
-    foreach ($codeformat as $id=>$code_file) {
-        $csv = parseCSVtoArray($code_file['code_file']);
-        if (!empty($csv)) {
-            $codes = array();
-            foreach ($csv as $header => $content) {
-                if ($header != 0) {
-                    $codes[0] = $code_file['list_name'];
-                    $index = 1;
-                    foreach ($content as $col => $value) {
-                        #Convert to UTF-8 to avoid weird characters
-                        $value = mb_convert_encoding($value, 'UTF-8', 'HTML-ENTITIES');
-                        $codes[$index] = $value;
-                        $index++;
-                    }
-                    array_push($codes_all,$codes);
-                }
-            }
-        }
-    }*/
     return $data_array;
 }
 
@@ -433,5 +415,22 @@ function getImageToDisplay($edoc){
     }
 
     return $img_logo;
+}
+
+function loadImg($imgEdoc,$secret_key,$secret_iv,$default,$option=""){
+    $img = $default;
+    if($imgEdoc != ''){
+        $sql = "SELECT stored_name,doc_name,doc_size FROM redcap_edocs_metadata WHERE doc_id='" . db_escape($imgEdoc)."'";
+        $q = db_query($sql);
+
+        while ($row = db_fetch_assoc($q)) {
+            if($option == 'pdf'){
+                $img = EDOC_PATH.$row['stored_name'];
+            }else{
+                $img = 'downloadFile.php?sname='.$row['stored_name']."&file=". urlencode($row['doc_name']);
+            }
+        }
+    }
+    return $img;
 }
 ?>

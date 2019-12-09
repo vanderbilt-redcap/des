@@ -58,7 +58,6 @@ if($option == "2"){
     if(!empty($dataTable)) {
         # Get selected rows;
         $tableHtml = generateTablesHTML_pdf($dataTable,$draft,$deprecated);
-        $requested_tables = generateRequestedTablesList_pdf($dataTable,$draft,$deprecated);
     }
     #FIRST PAGE
     $first_page = "<tr><td align='center'>";
@@ -69,21 +68,23 @@ if($option == "2"){
     $first_page .= "</span></td></tr></table>";
 
     #SECOND PAGE
-    $second_page .= "<p><span style='font-size: 12pt'>".$requested_tables."</span></p>";
+    $second_page .= "<p><span style='font-size: 12pt'>".$tableHtml[1]."</span></p>";
 
     $page_num = '<style>.footer .page-number:after { content: counter(page); } .footer { position: fixed; bottom: 0px;color:grey }a{text-decoration: none;}</style>';
 
+    $img = 'data:image/png;base64,'.base64_encode(file_get_contents(loadImg($settings['des_logo'],$secret_key,$secret_iv,'../../img/IeDEA-logo-200px.png','pdf')));
+
     $html_pdf = "<html><body style='font-family:\"Calibri\";font-size:10pt;'>".$page_num
         ."<div class='footer' style='left: 590px;'><span class='page-number'>Page </span></div>"
-        ."<div class='mainPDF'><table style='width: 100%;'><tr><td align='center'><img src='../img/IeDEA-logo-200px.png' style='width:200px;padding-bottom: 30px;'></td></tr></table></div>"
+        ."<div class='mainPDF'><table style='width: 100%;'><tr><td align='center'><img src='".$img."' style='width:200px;padding-bottom: 30px;'></td></tr></table></div>"
         ."<div class='mainPDF' id='page_html_style'><table style='width: 100%;'>".$first_page."<div style='page-break-before: always;'></div>"
         ."<div class='mainPDF'>".$second_page."<div style='page-break-before: always;'></div>"
         ."<p><span style='font-size:16pt'><strong>6. Requested DES Tables</strong></span></p>"
-        .$tableHtml
+        .$tableHtml[0]
         ."</div></div>"
         . "</body></html>";
 
-    $filename = $settings['des_wkname']."_DES_".$text_option.date("Y-m-d_hi",time());
+    $filename = $settings['des_wkname']."_DES_".date("Y-m-d_hi",time());
 
     //DOMPDF
     $dompdf = new \Dompdf\Dompdf();
