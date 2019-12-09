@@ -6,10 +6,6 @@ require_once "base.php";
 
 
 session_start();
-
-$projectDESSettings = new \Plugin\Project(DES_SETTINGS);
-$RecordSetSettings= new \Plugin\RecordSet($projectDESSettings, array(\Plugin\RecordSet::getKeyComparatorPair($projectDESSettings->getFirstFieldName(),"!=") => ""));
-$settings = $RecordSetSettings->getDetails()[0];
 ?>
 
 <!DOCTYPE html>

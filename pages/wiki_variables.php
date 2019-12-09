@@ -1,16 +1,16 @@
 <?php
 
-$deprecated = empty($_REQUEST['deprecated']) ? $_SESSION['draft'] : $_REQUEST['deprecated'];
-$draft = empty($_REQUEST['draft']) ? $_SESSION['draft'] : $_REQUEST['draft'];
+$deprecated = empty($_REQUEST['deprecated_'.$settings['des_wkname']]) ? $_SESSION['draft_'.$settings['des_wkname']] : $_REQUEST['deprecated_'.$settings['des_wkname']];
+$draft = empty($_REQUEST['draft']) ? $_SESSION['draft_'.$settings['des_wkname']] : $_REQUEST['draft_'.$settings['des_wkname']];
 $tid = empty($_REQUEST['tid']) ? "" : $_REQUEST['tid'];
 $vid = empty($_REQUEST['vid']) ? "" : $_REQUEST['vid'];
 
-if(!empty($_POST['deprecated'])){
-    $_SESSION['deprecated'] = $_POST['deprecated'];
+if(!empty($_POST['deprecated_'.$settings['des_wkname']])){
+    $_SESSION['deprecated_'.$settings['des_wkname']] = $_POST['deprecated_'.$settings['des_wkname']];
 }
 
-if(!empty($_POST['draft'])){
-    $_SESSION['draft'] = $_POST['draft'];
+if(!empty($_POST['draft_'.$settings['des_wkname']])){
+    $_SESSION['draft_'.$settings['des_wkname']] = $_POST['draft_'.$settings['des_wkname']];
 }
 
 if(empty($draft)){

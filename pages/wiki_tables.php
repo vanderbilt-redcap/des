@@ -3,18 +3,18 @@
 $filerepo = getProjectInfoArray(DES_FILEREPO,"");
 
 
-$deprecated = empty($_POST['deprecated']) ? $_SESSION['deprecated'] : $_POST['deprecated'];
-$draft = empty($_POST['draft']) ? $_SESSION['draft'] : $_POST['draft'];
+$deprecated = empty($_POST['deprecated']) ? $_SESSION['deprecated_'.$settings['des_wkname']] : $_POST['deprecated_'.$settings['des_wkname']];
+$draft = empty($_POST['draft']) ? $_SESSION['draft_'.$settings['des_wkname']] : $_POST['draft_'.$settings['des_wkname']];
 $tid = empty($_REQUEST['tid']) ? "" : $_REQUEST['tid'];
 $vid = empty($_REQUEST['vid']) ? "" : $_REQUEST['vid'];
 
 
 if(!empty($_POST['deprecated'])){
-    $_SESSION['deprecated'] = $_POST['deprecated'];
+    $_SESSION['deprecated_'.$settings['des_wkname']] = $_POST['deprecated_'.$settings['des_wkname']];
 }
 
 if(!empty($_POST['draft'])){
-    $_SESSION['draft'] = $_POST['draft'];
+    $_SESSION['draft_'.$settings['des_wkname']] = $_POST['draft_'.$settings['des_wkname']];
 }
 
 if(empty($draft)){

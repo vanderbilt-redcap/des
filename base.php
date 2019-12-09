@@ -54,3 +54,7 @@ define('APP_PATH_WEBROOT_ALL',APP_PATH_WEBROOT_FULL.$APP_PATH_WEBROOT_ALL);
 
 include("configuration.php");
 include_once("projects.php");
+
+$projectDESSettings = new \Plugin\Project(DES_SETTINGS);
+$RecordSetSettings= new \Plugin\RecordSet($projectDESSettings, array(\Plugin\RecordSet::getKeyComparatorPair($projectDESSettings->getFirstFieldName(),"!=") => ""));
+$settings = $RecordSetSettings->getDetails()[0];
