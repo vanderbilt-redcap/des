@@ -15,7 +15,7 @@
     <div class="option-search">
         <a href="index.php?page=search">Variable Search</a>
     </div>
-    <div class="option-btn">
+    <div class="option-btn btn-deprecated">
         <button href="#" id="deprecated_info" class="btn-default-reverse btn" onclick="loadStatus('deprecated','<?=$_SESSION['deprecated_'.$settings['des_wkname']]?>','');" type="checkbox" name="deprecated_info">
             <span class="fa fa-exclamation-circle" id="deprecated-icon"></span> Show Deprecated
         </button>

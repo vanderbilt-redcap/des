@@ -434,6 +434,9 @@ a[href]:after {
     padding-left: 16px;
     line-height: 2em;
 }
+.btn-deprecated{
+    margin-right: 15px;
+}
 
 /***Medium Devices, Desktops **/
 @media (max-width: 992px) {
@@ -451,6 +454,9 @@ a[href]:after {
     }
     .option-search{
         width:100%;
+    }
+    .btn-deprecated{
+        margin-right: 0px;
     }
     .nav-padding-left{
         padding-left: 15px !important;
