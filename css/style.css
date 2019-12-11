@@ -430,7 +430,9 @@ a[href]:after {
 .option-search{
     font-size: 16px;
     text-decoration: underline;
-    padding-bottom: 10px;
+    float: left;
+    padding-left: 16px;
+    line-height: 2em;
 }
 
 /***Medium Devices, Desktops **/
@@ -444,8 +446,11 @@ a[href]:after {
 /***Small Devices, Tablets**/
 @media (max-width: 768px) {
     .option-btn{
-        float:right;
-        padding-left:10px;
+        float:left;
+        width: 50%;
+    }
+    .option-search{
+        width:100%;
     }
     .nav-padding-left{
         padding-left: 15px !important;

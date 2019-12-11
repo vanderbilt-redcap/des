@@ -12,15 +12,15 @@
         });
     </script>
 
-    <div class="col-xs-12 option-search">
+    <div class="option-search">
         <a href="index.php?page=search">Variable Search</a>
     </div>
-    <div class="option-btn col-xs-6">
+    <div class="option-btn">
         <button href="#" id="deprecated_info" class="btn-default-reverse btn" onclick="loadStatus('deprecated','<?=$_SESSION['deprecated_'.$settings['des_wkname']]?>','');" type="checkbox" name="deprecated_info">
             <span class="fa fa-exclamation-circle" id="deprecated-icon"></span> Show Deprecated
         </button>
     </div>
-    <div class="option-btn col-xs-6">
+    <div class="option-btn">
         <button href="#" id="draft_info" class="btn-default-reverse btn" onclick="loadStatus('draft','<?=$_SESSION['draft_'.$settings['des_wkname']]?>','');" type="checkbox" name="draft_info">
             <span class="fa fa-clock-o" id="draft-icon"></span> Show Draft
         </button>
