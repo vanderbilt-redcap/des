@@ -99,13 +99,12 @@ function array_sort_by_column(&$arr, $col, $dir = SORT_ASC) {
  */
 function generateTablesHTML_pdf($dataTable,$draft,$deprecated){
     $tableHtml = "";
-    $requested_tables = "";
+    $requested_tables = "<ol>";
     $table_counter = 0;
     foreach ($dataTable as $data) {
         if (!empty($data['record_id'])) {
             $found = false;
             $htmlCodes = '';
-            $requested_tables .= "<ol>";
             if($data['table_status'] == "1" || !array_key_exists("table_status",$data) || ($data['table_status'] == "2" && $deprecated == "true") || ($data['table_status'] == "0" && $draft == "true")) {
                 $requested_tables .= "<li><a href='#anchor_" . $data['record_id'] . "' style='text-decoration:none'>" . $data["table_name"] . "</a></li>";
                 foreach ($data['variable_order'] as $id => $value) {
@@ -235,8 +234,8 @@ function generateTablesHTML_pdf($dataTable,$draft,$deprecated){
                 if (!empty($htmlCodes))
                     $tableHtml .= $htmlCodes . '<br/>';
             }
-            $requested_tables .= "</ol>";
         }
+        $requested_tables .= "</ol>";
     }
     $pdf_content = array(0=>$tableHtml,1=>$requested_tables);
     return $pdf_content;
