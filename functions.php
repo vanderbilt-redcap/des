@@ -235,8 +235,9 @@ function generateTablesHTML_pdf($dataTable,$draft,$deprecated){
                     $tableHtml .= $htmlCodes . '<br/>';
             }
         }
-        $requested_tables .= "</ol>";
     }
+    $requested_tables .= "</ol>";
+
     $pdf_content = array(0=>$tableHtml,1=>$requested_tables);
     return $pdf_content;
 }
@@ -431,5 +432,143 @@ function loadImg($imgEdoc,$secret_key,$secret_iv,$default,$option=""){
         }
     }
     return $img;
+}
+
+function getCrypt($string, $action = 'e',$secret_key="",$secret_iv="" ) {
+    $output = false;
+    $encrypt_method = "AES-256-CBC";
+    $key = hash( 'sha256', $secret_key );
+    $iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+
+    if( $action == 'e' ) {
+        $output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
+    }
+    else if( $action == 'd' ){
+        $output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
+    }
+
+    return $output;
+}
+
+function hasJsoncopyBeenUpdated($type){
+    if(ENVIRONMENT == "DEV"){
+        $sqltype = "SELECT MAX(record) as record FROM redcap_data WHERE project_id='".db_escape(DES_JSONCOPY)."' AND field_name='".db_escape('type')."' and value='".db_escape($type)."' order by record";
+    }else{
+        $sqltype = "SELECT MAX(CAST(record AS Int)) as record FROM redcap_data WHERE project_id='".db_escape(DES_JSONCOPY)."' AND field_name='".db_escape('type')."' and value='".db_escape($type)."' order by record";
+    }
+
+    $qtype = db_query($sqltype);
+
+    if ($error = db_error()) {
+        die($sqltype . ': ' . $error);
+    }
+
+    $rowtype = db_fetch_assoc($qtype);
+    $projectCopy = new \Plugin\Project(DES_JSONCOPY);
+    $RecordSetCopy = new \Plugin\RecordSet($projectCopy, array('record_id' => $rowtype['record']));
+    $jsoncocpy = $RecordSetCopy->getDetails()[0];
+    $today = date("Y-m-d");
+    if($jsoncocpy["jsoncopy_file"] != "" && strtotime(date("Y-m-d",strtotime($jsoncocpy['json_copy_update_d']))) == strtotime($today)){
+        return true;
+    }else if(strtotime(date("Y-m-d",strtotime($jsoncocpy['json_copy_update_d']))) == "" || !array_key_exists('json_copy_update_d',$jsoncocpy)){
+        $record = \Plugin\Record::createRecordFromId($projectCopy,$rowtype['record']);
+        $record->updateDetails(array('json_copy_update_d' => date("Y-m-d H:i:s")),true);
+        return true;
+    }
+    return false;
+}
+
+function createAndSavePDFCron($settings,$secret_key,$secret_iv){
+   $dataTable = getTablesInfo(DES_DATAMODEL);
+
+    if(!empty($dataTable)) {
+        $tableHtml = generateTablesHTML_pdf($dataTable,false,false);
+    }
+    #FIRST PAGE
+    $first_page = "<tr><td align='center'>";
+    $first_page .= "<p><span style='font-size: 16pt;font-weight: bold;'>".$settings['des_pdf_title']."</span></p>";
+    $first_page .= "<p><span style='font-size: 16pt;font-weight: bold;'>".$settings['des_pdf_subtitle']."</span></p><br/>";
+    $first_page .= "<p><span style='font-size: 14pt;font-weight: bold;'>Version: ".date('d F Y')."</span></p><br/>";
+    $first_page .= "<p><span style='font-size: 14pt;font-weight: bold;'>".$settings['des_pdf_text']."</span></p><br/>";
+    $first_page .= "<span style='font-size: 12pt'>";
+    $first_page .= "</span></td></tr></table>";
+
+    #SECOND PAGE
+    $second_page = "<p><span style='font-size: 12pt'>".$tableHtml[1]."</span></p>";
+
+    $page_num = '<style>.footer .page-number:after { content: counter(page); } .footer { position: fixed; bottom: 0px;color:grey }a{text-decoration: none;}</style>';
+
+    $img = 'data:image/png;base64,'.base64_encode(file_get_contents(loadImg($settings['des_logo'],$secret_key,$secret_iv,'../../img/IeDEA-logo-200px.png','pdf')));
+
+    $html_pdf = "<html><body style='font-family:\"Calibri\";font-size:10pt;'>".$page_num
+        ."<div class='footer' style='left: 590px;'><span class='page-number'>Page </span></div>"
+        ."<div class='mainPDF'><table style='width: 100%;'><tr><td align='center'><img src='".$img."' style='width:200px;padding-bottom: 30px;'></td></tr></table></div>"
+        ."<div class='mainPDF' id='page_html_style'><table style='width: 100%;'>".$first_page."<div style='page-break-before: always;'></div>"
+        ."<div class='mainPDF'>".$second_page."<div style='page-break-before: always;'></div>"
+        ."<p><span style='font-size:16pt'><strong>DES Tables</strong></span></p>"
+        .$tableHtml[0]
+        ."</div></div>"
+        . "</body></html>";
+
+   $filename = $settings['des_wkname']."_DES_".date("Y-m-d_hi",time());
+    //SAVE PDF ON DB
+    $reportHash = $filename;
+    $storedName = md5($reportHash);
+
+    //DOMPDF
+    $dompdf = new \Dompdf\Dompdf();
+    $dompdf->loadHtml($html_pdf);
+    $dompdf->setPaper('A4', 'portrait');
+    ob_start();
+    $dompdf->render();
+    //#Download option
+    $output = $dompdf->output();
+    $filesize = file_put_contents(EDOC_PATH.$storedName, $output);
+
+    //Save document on DB
+    $sql = "INSERT INTO redcap_edocs_metadata (stored_name,mime_type,doc_name,doc_size,file_extension,gzipped,project_id,stored_date) VALUES
+          ('".db_escape($storedName)."','".db_escape('application/octet-stream')."','".db_escape($reportHash.".pdf")."',".db_escape($filesize).",'".db_escape('.pdf')."','".db_escape('0')."','".db_escape(DES_SETTINGS)."','".db_escape(date('Y-m-d h:i:s'))."')";
+    db_query($sql);
+    $docId = db_insert_id();
+
+
+    //Add document DB ID to project
+    $project = new \Plugin\Project(DES_SETTINGS);
+    $record = \Plugin\Record::createRecordFromId($project,1);
+    $record->updateDetails(array('des_update_d' => date("Y-m-d H:i:s")),true);
+    $record->updateDetails(array('des_pdf' => $docId),true);
+    \Records::addRecordToRecordListCache($project->getProjectId(), $record->getId(),$project->getArmNum());
+
+
+    $link = APP_PATH_PLUGIN."/downloadFile.php?code=".getCrypt("sname=".$storedName."&file=". $filename.".pdf&edoc=".$docId,'e',$secret_key,$secret_iv);
+    $goto = APP_PATH_WEBROOT_ALL . "DataEntry/index.php?pid=".DES_SETTINGS."&page=pdf&id=1";
+
+    $subject = "New DES PDF Generated";
+    $message = "<div>Changes have been detected and a new PDF has been generated.</div><br/>".
+        "<div>You can <a href='".$link."'>download the pdf</a> or <a href='".$goto."'>go to the settings project</a>.</div><br/>";
+
+    if($settings['des_pdf_notification_email'] != "") {
+        $emails = explode(';', $settings['des_pdf_notification_email']);
+        foreach ($emails as $email) {
+            \REDCap::email($email, $settings['accesslink_sender_email'], $subject, $message,"","",$settings['accesslink_sender_name']);
+        }
+    }
+}
+
+function getFileLink($edoc, $secret_key,$secret_iv){
+    $file_row = '';
+    if($edoc != "") {
+        $sql = "SELECT stored_name,doc_name,doc_size FROM redcap_edocs_metadata WHERE doc_id='" . db_escape($edoc)."'";
+        $q = db_query($sql);
+
+        if ($error = db_error()) {
+            die($sql . ': ' . $error);
+        }
+
+        while ($row = db_fetch_assoc($q)) {
+            $file_row = APP_PATH_PLUGIN."/downloadFile.php?code=" . getCrypt("sname=" . $row['stored_name'] . "&file=" . urlencode($row['doc_name']) . "&edoc=" . $edoc , 'e', $secret_key, $secret_iv);
+        }
+    }
+    return $file_row;
 }
 ?>

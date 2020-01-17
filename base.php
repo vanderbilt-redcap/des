@@ -51,9 +51,12 @@ if(APP_PATH_WEBROOT[0] == '/'){
     $APP_PATH_WEBROOT_ALL = substr(APP_PATH_WEBROOT, 1);
 }
 define('APP_PATH_WEBROOT_ALL',APP_PATH_WEBROOT_FULL.$APP_PATH_WEBROOT_ALL);
+define('APP_PATH_PLUGIN',APP_PATH_WEBROOT_FULL."plugins/".substr(__DIR__,strlen(dirname(__DIR__))+1));
 
 include("configuration.php");
 include_once("projects.php");
+
+require_once 'vendor/autoload.php';
 
 $projectDESSettings = new \Plugin\Project(DES_SETTINGS);
 $RecordSetSettings= new \Plugin\RecordSet($projectDESSettings, array(\Plugin\RecordSet::getKeyComparatorPair($projectDESSettings->getFirstFieldName(),"!=") => ""));

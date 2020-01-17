@@ -19,7 +19,7 @@ if($option == "2"){
 
     $requested_tables = getHtmlTableCodesTableArrayExcel($dataTable);
     #EXEL SHEET
-    $filename = "code_list_ " . date("F Y") . ".xlsx";
+    $filename = "code_list_ " . date("Y-m-d_hi",time()) . ".xlsx";
 
     $styleArray = array(
         'font'  => array(
@@ -68,7 +68,7 @@ if($option == "2"){
     $first_page .= "</span></td></tr></table>";
 
     #SECOND PAGE
-    $second_page .= "<p><span style='font-size: 12pt'>".$tableHtml[1]."</span></p>";
+    $second_page = "<p><span style='font-size: 12pt'>".$tableHtml[1]."</span></p>";
 
     $page_num = '<style>.footer .page-number:after { content: counter(page); } .footer { position: fixed; bottom: 0px;color:grey }a{text-decoration: none;}</style>';
 
