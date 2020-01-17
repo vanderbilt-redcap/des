@@ -450,7 +450,7 @@ function getCrypt($string, $action = 'e',$secret_key="",$secret_iv="" ) {
     return $output;
 }
 
-function hasJsoncopyBeenUpdated($type){
+function hasJsoncopyBeenUpdated($type,$settings){
     if(ENVIRONMENT == "DEV"){
         $sqltype = "SELECT MAX(record) as record FROM redcap_data WHERE project_id='".db_escape(DES_JSONCOPY)."' AND field_name='".db_escape('type')."' and value='".db_escape($type)."' order by record";
     }else{
@@ -470,7 +470,7 @@ function hasJsoncopyBeenUpdated($type){
     $today = date("Y-m-d");
     if($jsoncocpy["jsoncopy_file"] != "" && strtotime(date("Y-m-d",strtotime($jsoncocpy['json_copy_update_d']))) == strtotime($today)){
         return true;
-    }else if(strtotime(date("Y-m-d",strtotime($jsoncocpy['json_copy_update_d']))) == "" || !array_key_exists('json_copy_update_d',$jsoncocpy)){
+    }else if(strtotime(date("Y-m-d",strtotime($jsoncocpy['json_copy_update_d']))) == "" || !array_key_exists('json_copy_update_d',$jsoncocpy) || !array_key_exists('des_pdf',$settings) || $settings['des_pdf'] == ""){
         $record = \Plugin\Record::createRecordFromId($projectCopy,$rowtype['record']);
         $record->updateDetails(array('json_copy_update_d' => date("Y-m-d H:i:s")),true);
         return true;
