@@ -50,13 +50,12 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                         $dataFormat .= "<td class=''>Definition</td></tr>";
                                     }
                                     foreach ($codeOptions as $option) {
-                                        list($key, $val) = explode("=", $option);
-                                        $dataFormat .= "<tr><td style='text-align: center;'>".trim($key)."</td><td>".trim($val)."</td></tr>";
+                                        $var_codes = preg_split("/((?<!['\"])=(?!['\"]))/", $option);
+                                        $dataFormat .= "<tr><td style='text-align: center;'>".trim($var_codes[0])."</td><td>".trim($var_codes[1])."</td></tr>";
                                     }
                                     if (!empty($codeOptions[0])) {
                                         $dataFormat .= "</tbody></table></div></div></div>";
                                     }
-
                                     echo $dataFormat;
 
                                 } else if ($codeformat['code_format'] == '3') {
