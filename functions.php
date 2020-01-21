@@ -588,7 +588,6 @@ function createAndSaveJSONCron($settings,$secret_key,$secret_iv){
     if(!empty($jsonArray)){
         saveJSONCopy($jsonArray);
     }
-    print_array($jsonArray);
 }
 
 function saveJSONCopy($jsonArray){
@@ -613,7 +612,6 @@ function saveJSONCopy($jsonArray){
     $record->updateDetails(array('des_variable_search' => $docId),true);
 
     \Records::addRecordToRecordListCache($project->getProjectId(), $record->getId(),$project->getArmNum());
-    print_array($docId);
 }
 
 function getFileLink($edoc, $secret_key,$secret_iv){
