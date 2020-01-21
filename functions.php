@@ -563,7 +563,7 @@ function createAndSaveJSONCron($settings,$secret_key,$secret_iv){
         $jsonVarArrayAux = array();
         foreach ($data['variable_order'] as $id => $value) {
             if($data['variable_name'][$id] != ''){
-                $url = 'index.php?pid=' . DES_DATAMODEL . '&tid=' . $data['record_id'][0] . '&vid=' . $id . '&page=variableInfo';
+                $url = 'index.php?pid=' . DES_DATAMODEL . '&tid=' . $data['record_id'] . '&vid=' . $id . '&page=variableInfo';
 
                 $jsonVarArrayAux[trim($data['variable_name'][$id])] = array();
                 $variables_array  = array(
