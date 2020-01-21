@@ -44,7 +44,7 @@ include_once(__DIR__ . "/functions.php");
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 global $Core;
-$Core->Helpers(array('Debug', 'Array','parseCSVtoArray', 'createArrayFromCSV'));
+$Core->Helpers(array('Debug', 'Array','parseCSVtoArray', 'createArrayFromCSV','getRandomIdentifier'));
 $Core->Libraries(array('Project','RecordSet', 'Record',"UserRights", "Passthru"));
 
 if(APP_PATH_WEBROOT[0] == '/'){

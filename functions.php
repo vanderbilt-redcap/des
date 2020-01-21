@@ -555,6 +555,67 @@ function createAndSavePDFCron($settings,$secret_key,$secret_iv){
     }
 }
 
+function createAndSaveJSONCron($settings,$secret_key,$secret_iv){
+    $dataTable = getProjectInfoArray(DES_DATAMODEL);
+    $ProjectTable = new \Plugin\Project(DES_DATAMODEL);
+    $dataFormat = \Plugin\Project::convertEnumToArray($ProjectTable->getMetadata('data_format')->getElementEnum());
+    foreach ($dataTable as $data) {
+        $jsonVarArrayAux = array();
+        foreach ($data['variable_order'] as $id => $value) {
+            if($data['variable_name'][$id] != ''){
+                $url = 'index.php?pid=' . DES_DATAMODEL . '&tid=' . $data['record_id'][0] . '&vid=' . $id . '&page=variableInfo';
+
+                $jsonVarArrayAux[trim($data['variable_name'][$id])] = array();
+                $variables_array  = array(
+                    "instance" => $id,
+                    "description" => $data['description'][$id],
+                    "description_extra" => $data['description_extra'][$id],
+                    "code_list_ref" => $data['code_list_ref'][$id],
+                    "data_format" => trim($dataFormat[$data['data_format'][$id]]),
+                    "code_text" => $data['code_text'][$id],
+                    "variable_link" => $url
+                );
+                $jsonVarArrayAux[$data['variable_name'][$id]] = $variables_array;
+            }
+        }
+        $jsonVarArray = $jsonVarArrayAux;
+        $urltid = 'index.php?pid=' . DES_DATAMODEL . '&tid=' . $data['record_id'] . '&page=variables';
+        $jsonVarArray['table_link'] = $urltid;
+        $jsonArray[trim($data['table_name'])] = $jsonVarArray;
+    }
+
+    #we save the new JSON
+    if(!empty($jsonArray)){
+        saveJSONCopy($jsonArray);
+    }
+    print_array($jsonArray);
+}
+
+function saveJSONCopy($jsonArray){
+    #create and save file with json
+    $filename = "jsoncopy_file_variable_search_".date("YmdsH").".txt";
+    $storedName = date("YmdsH")."_pid".DES_JSONCOPY."_".getRandomIdentifier(6).".txt";
+
+    $file = fopen(EDOC_PATH.$storedName,"wb");
+    fwrite($file,json_encode($jsonArray,JSON_FORCE_OBJECT));
+    fclose($file);
+
+    $output = file_get_contents(EDOC_PATH.$storedName);
+    $filesize = file_put_contents(EDOC_PATH.$storedName, $output);
+
+    $sql = "INSERT INTO redcap_edocs_metadata (stored_name,doc_name,doc_size,file_extension,mime_type,gzipped,project_id,stored_date) VALUES ('".db_escape($storedName)."','".db_escape($filename)."','".db_escape($filesize)."','".db_escape('txt')."','".db_escape('application/octet-stream')."','".db_escape('0')."','".db_escape(DES_SETTINGS)."','".db_escape(date('Y-m-d h:i:s'))."')";
+    $q = db_query($sql);
+    $docId = db_insert_id();
+
+    #save the project
+    $project = new \Plugin\Project(DES_SETTINGS);
+    $record = \Plugin\Record::createRecordFromId($project,1);
+    $record->updateDetails(array('des_variable_search' => $docId),true);
+
+    \Records::addRecordToRecordListCache($project->getProjectId(), $record->getId(),$project->getArmNum());
+    print_array($docId);
+}
+
 function getFileLink($edoc, $secret_key,$secret_iv){
     $file_row = '';
     if($edoc != "") {
