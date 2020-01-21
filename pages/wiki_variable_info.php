@@ -50,7 +50,8 @@ $dataTable = getTablesInfo(DES_DATAMODEL,$tid);
                                         $dataFormat .= "<td class=''>Definition</td></tr>";
                                     }
                                     foreach ($codeOptions as $option) {
-                                        $var_codes = preg_split("/((?<!['\"])=(?!['\"]))/", $option);
+                                        //split by = except if the first character is =
+                                        $var_codes = preg_split("/([^=])(=)(.*?)/", $option);
                                         $dataFormat .= "<tr><td style='text-align: center;'>".trim($var_codes[0])."</td><td>".trim($var_codes[1])."</td></tr>";
                                     }
                                     if (!empty($codeOptions[0])) {
