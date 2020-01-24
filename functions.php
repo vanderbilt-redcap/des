@@ -539,18 +539,22 @@ function createAndSavePDFCron($settings,$secret_key,$secret_iv){
     $record->updateDetails(array('des_pdf' => $docId),true);
     \Records::addRecordToRecordListCache($project->getProjectId(), $record->getId(),$project->getArmNum());
 
-
-    $link = APP_PATH_PLUGIN."/downloadFile.php?code=".getCrypt("sname=".$storedName."&file=". $filename.".pdf&edoc=".$docId,'e',$secret_key,$secret_iv);
-    $goto = APP_PATH_WEBROOT_ALL . "DataEntry/index.php?pid=".DES_SETTINGS."&page=pdf&id=1";
-
-    $subject = "New DES PDF Generated";
-    $message = "<div>Changes have been detected and a new PDF has been generated.</div><br/>".
-        "<div>You can <a href='".$link."'>download the pdf</a> or <a href='".$goto."'>go to the settings project</a>.</div><br/>";
-
     if($settings['des_pdf_notification_email'] != "") {
+        $link = APP_PATH_PLUGIN."/downloadFile.php?code=".getCrypt("sname=".$storedName."&file=". $filename.".pdf&edoc=".$docId,'e',$secret_key,$secret_iv);
+        $goto = APP_PATH_WEBROOT_ALL . "DataEntry/index.php?pid=".DES_SETTINGS."&page=pdf&id=1";
+
+        $subject = "New DES PDF Generated";
+        $message = "<div>Changes have been detected and a new PDF has been generated.</div><br/>".
+            "<div>You can <a href='".$link."'>download the pdf</a> or <a href='".$goto."'>go to the settings project</a>.</div><br/>";
+
+        $environment = "";
+        if(ENVIRONMENT == 'DEV' || ENVIRONMENT == 'TEST'){
+            $environment = " ".ENVIRONMENT;
+        }
+
         $emails = explode(';', $settings['des_pdf_notification_email']);
         foreach ($emails as $email) {
-            \REDCap::email($email, $settings['accesslink_sender_email'], $subject, $message,"","",$settings['accesslink_sender_name']);
+            \REDCap::email($email, $settings['accesslink_sender_email'], $subject.$environment, $message,"","",$settings['accesslink_sender_name']);
         }
     }
 }
