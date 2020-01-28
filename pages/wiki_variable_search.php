@@ -1,38 +1,33 @@
 <script>
     $(document).ready(function() {
-        $('#searchForm').on('submit', function(event) {
-            loadSearch($('#varsearch').val());
-            event.preventDefault();
-        });
+        $('.table_search').dataTable( {"pageLength": 50,"order": [0, "asc"]});
+        var table = $('#table_archive').DataTable();
 
-        $(document).ready(function() {
-            $('.table_search').dataTable( {"pageLength": 50,"order": [0, "asc"]});
-
-            $('#search_btn').click( function() {
-                var table = $('#table_archive').DataTable();
-                table.draw();
-            } );
-
-            $('#table_archive_filter').appendTo( '#options_wrapper' );
-            $('#table_archive_length').appendTo( '#options_wrapper' );
-            $('#table_archive_filter').attr( 'style','float: right;padding-left: 170px;padding-top: 5px;' );
+        $('#varsearch').change( function() {
+            var variable = $('#varsearch').is(':checked');
+            table.column(1).search("").draw();
+            if(variable == true) {
+                table.column(1).search($('.dataTables_filter input')[0].value).draw();
+            }else{
+                table.search($('.dataTables_filter input')[0].value).draw();
+            }
         } );
 
-        //To filter the data
-        $.fn.dataTable.ext.search.push(
-            function( settings, data, dataIndex ) {
-                var variable = $('#varsearch').val().toUpperCase();
-                var column_variable = data[1];
+        $('#fieldcheckbox').appendTo( '#options_wrapper' );
+        $('#table_archive_filter').appendTo( '#options_wrapper' );
+        $('#table_archive_length').appendTo( '#options_wrapper' );
+        $('#table_archive_filter').attr( 'style','float: right;padding-left: 170px;padding-top: 5px;' );
+        $('#fieldcheckbox').attr( 'style','float: right;padding-left: 40px;padding-top: 7px;' );
+        $('#table_archive_length').attr( 'style','padding-top: 7px;' );
 
-                if(variable != '' && column_variable.match(variable) != null){
-                    return true;
-                }else if(variable == ''){
-                    return true;
-                }
-
-                return false;
+        $("#table_archive_filter input").on('keyup click', function() {
+            var variable = $('#varsearch').is(':checked');
+            if(variable == true) {
+                table.column(1).search($(this).val()).draw();
+            }else{
+                table.search($(this).val()).draw();
             }
-        );
+        });
     });
 </script>
 <div class="wiki_main">
@@ -43,51 +38,17 @@
                     <p>Enter the variable name to search for it and obtain information related to that variable.</p>
                     <p>To see more information click on the variable or table name.</p>
                 </div>
-<!--                <div style="padding-top: 10px;display: inline-block">-->
-<!--                    <form class="form-inline" id="searchForm">-->
-<!--                        <div class="form-group">-->
-<!--                            <input class="form-control" id="varsearch" placeholder="insert variable name">-->
-<!--                        </div>-->
-<!--                        <button type="submit" class="btn btn-default">Search</button>-->
-<!--                    </form>-->
-<!--                </div>-->
-                <div style="padding-top: 10px;display: inline-block">
-                    <div class="form-group">
-                        <input class="search-input" id="varsearch" placeholder="insert variable name">
-                        <button type="submit" class="btn btn-default" id="search_btn">Search</button>
-                    </div>
-                </div>
                 <div style="padding-top: 10px;">
-                        <div id="options_wrapper"></div>
+                        <div id="options_wrapper">
+                            <div class="custom-control custom-checkbox" id="fieldcheckbox">
+                                <input type="checkbox" class="custom-control-input" id="varsearch" name="varsearch" checked>
+                                <label class="custom-control-label" for="varsearch">Search Field Name Only</label>
+                            </div>
+                        </div>
                 </div>
             </div>
-<!--                <div class="col-md-12" style="padding-top: 10px">-->
-<!--                    <div class="panel panel-default" >-->
-<!--                        <div class="panel-heading">-->
-<!--                            <h3 class="panel-title" id="seatch-title">-->
-<!--                                Search results-->
-<!--                            </h3>-->
-<!--                        </div>-->
-<!--                        <div id="collapse3" class="table-responsive panel-collapse collapse in" aria-expanded="true">-->
-<!--                            <table class="table table_requests sortable-theme-bootstrap" data-sortable id="table_search" style="margin-bottom: 0">-->
-<!--                                <thead>-->
-<!--                                <tr>-->
-<!--                                    <th>Table</th>-->
-<!--                                    <th>Field Name</th>-->
-<!--                                    <th>Format</th>-->
-<!--                                    <th>Description</th>-->
-<!--                                </tr>-->
-<!--                                </thead>-->
-<!--                                <tbody id="loadSearch"><tr><td>No results found</td><td></td><td></td><td></td></tr></tbody>-->
-<!--                            </table>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            <div class="col-md-12">-->
-<!--                <div id="options_wrapper_bottom" class="dataTables_wrapper"></div>-->
-<!--            </div>-->
 
-            <div class="col-md-12" style="padding-top: 10px">
+            <div class="col-md-12" style="padding-top: 10px;padding-bottom: 60px">
                 <div class="panel panel-default" >
                     <div class="panel-heading">
                         <h3 class="panel-title" id="seatch-title">
