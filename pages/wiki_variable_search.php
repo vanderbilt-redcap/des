@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12" style="padding-top: 10px;padding-bottom: 60px">
+            <div class="col-md-12" style="padding-top: 5px;padding-bottom: 60px">
                 <div class="panel panel-default" >
                     <div class="panel-heading">
                         <h3 class="panel-title" id="seatch-title">
