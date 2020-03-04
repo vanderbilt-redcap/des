@@ -1,18 +1,18 @@
 <?php
 /*** Created by Eva Bascompte */
-
+use Vanderbilt\Victrlib\Env;
 # Define the environment: options include "DEV", "TEST" or "PROD"
-if (is_file('/app001/victrcore/lib/Victr/Env.php'))
-    include_once('/app001/victrcore/lib/Victr/Env.php');
+if (is_file('/app001/www/redcap/plugins/victrlib/src/Env.php'))
+    include_once('/app001/www/redcap/plugins/victrlib/src/Env.php');
 
-if(class_exists("Victr_Env")) {
-    $envConf = Victr_Env::getEnvConf();
+if (class_exists("\\Vanderbilt\\Victrlib\\Env")) {
 
-    if ($envConf[Victr_Env::ENV_CURRENT] === Victr_Env::ENV_PROD) {
+    if (Env::isProd()) {
         define("ENVIRONMENT", "PROD");
-    }
-    elseif ($envConf[Victr_Env::ENV_CURRENT] === Victr_Env::ENV_DEV) {
+    } else if (Env::isStaging()) {
         define("ENVIRONMENT", "TEST");
+    }else{
+        define("ENVIRONMENT", "DEV");
     }
 }
 else {
@@ -29,12 +29,6 @@ else {
 
 define('imgPath','/plugins/resin_reg/img/down-arrow.png');
 
-$superUsers = array(
-    'site_admin' => 1,
-    'bascome' => 1,
-    'mcguffk' => 1
-);
-
 define('FILE_PATH_LOCALHOST', 'C:/UniServerZ-new/www/edocs/');
 
 require_once(__DIR__ . "/../../redcap_connect.php");
@@ -45,7 +39,7 @@ ini_set('display_errors',1);
 error_reporting(E_ALL);
 global $Core;
 $Core->Helpers(array('Debug', 'Array','parseCSVtoArray', 'createArrayFromCSV','getRandomIdentifier'));
-$Core->Libraries(array('Project','RecordSet', 'Record',"UserRights", "Passthru"));
+$Core->Libraries(array('Project','RecordSet', 'Record',"UserRights", "Passthru"),false);
 
 if(APP_PATH_WEBROOT[0] == '/'){
     $APP_PATH_WEBROOT_ALL = substr(APP_PATH_WEBROOT, 1);
