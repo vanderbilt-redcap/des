@@ -1,6 +1,12 @@
 <script>
     $(document).ready(function() {
-        $('.table_search').dataTable( {"pageLength": 50,"order": [0, "asc"]});
+        $('.table_search').dataTable( {"pageLength": 50,"order": [0, "asc"],"columnDefs": [
+                {
+                    "targets": [3],
+                    "visible": false,
+                    "searchable": true
+                }
+            ]});
         var table = $('#table_archive').DataTable();
 
         $('#varsearch').change( function() {
@@ -39,19 +45,19 @@
                     <p>To see more information click on the variable or table name.</p>
                 </div>
                 <div style="padding-top: 10px;">
-                        <div id="options_wrapper">
-                            <div class="custom-control custom-checkbox" id="fieldcheckbox">
-                                <input type="checkbox" class="custom-control-input" id="varsearch" name="varsearch" checked>
-                                <label class="custom-control-label" for="varsearch">Search Field Name Only</label>
-                            </div>
+                    <div id="options_wrapper">
+                        <div class="custom-control custom-checkbox" id="fieldcheckbox">
+                            <input type="checkbox" class="custom-control-input" id="varsearch" name="varsearch" checked>
+                            <label class="custom-control-label" for="varsearch">Search Field Name Only</label>
                         </div>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-12" style="padding-top: 5px;padding-bottom: 60px">
                 <div class="panel panel-default" >
                     <div class="panel-heading">
-                        <h3 class="panel-title" id="seatch-title">
+                        <h3 class="panel-title" id="search-title">
                             Search results
                         </h3>
                     </div>
@@ -60,7 +66,8 @@
                             <th>Table</th>
                             <th>Field Name</th>
                             <th>Format</th>
-                            <th>Description</th>
+                            <th>Format search</th>
+                            <th style='border-right: 1px solid #e0e0e0;'>Description</th>
                         </thead>
                         <tbody>
                         <?php
@@ -75,11 +82,13 @@
                                     foreach ($json_array as $tablename=>$variables){
                                         foreach ($variables as $varname=>$data){
                                             if($varname != "table_link")
-                                            $table .= "<tr>".
-                                                        "<td style='width:130px'><a href='".$variables['table_link']."'>".$tablename."</a></td>".
-                                                        "<td style='width:130px'><a href='".$data['variable_link']."'>".$varname."</a></td>".
+                                            $table .= "<tr style='border-right: 1px solid #e0e0e0;'>".
+                                                        "<td style='width:100px'><a href='".$variables['table_link']."'>".$tablename."</a></td>".
+                                                        "<td style='width:100px'><a href='".$data['variable_link']."'>".$varname."</a></td>".
                                                         "<td style='width:130px'>".$data['data_format']."</td>".
+                                                        "<td style='width:130px'>".$data['data_format_search']."</td>".
                                                         "<td><div>".$data['description']."</div><div><i>".$data['description_extra']."</i></div><div><i>".$data['code_text']."</i></div></td>".
+
                                                 "</tr>";
                                         }
                                     }

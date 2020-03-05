@@ -570,12 +570,38 @@ function createAndSaveJSONCron($settings,$secret_key,$secret_iv){
                 $url = 'index.php?pid=' . DES_DATAMODEL . '&tid=' . $data['record_id'] . '&vid=' . $id . '&page=variableInfo';
 
                 $jsonVarArrayAux[trim($data['variable_name'][$id])] = array();
+                if ($data['has_codes'][$id] != '1') {
+                    $dataFormatSearch = $dataTable['data_format_label'][$data['data_format'][$id]];
+                } else if ($data['has_codes'][$id] == '1') {
+                    if(!empty($data['code_list_ref'][$id])) {
+                        $codeformat = getProjectInfoArray(DES_CODELIST, array('record_id' => $data['code_list_ref'][$id]), 'simple');
+                        $dataFormatSearch = "";
+                        if ($codeformat['code_format'] == '1') {
+                            $codeOptions = empty($codeformat['code_list']) ? $data['code_text'][$id] : explode(" | ", $codeformat['code_list']);
+                            foreach ($codeOptions as $option) {
+                                $var_codes = preg_split("/((?<!['\"])=(?!['\"]))/", $option);
+                                $dataFormatSearch .= trim($var_codes[2]) . ", ";
+                            }
+                        } else if ($codeformat['code_format'] == '3') {
+                            $csv = parseCSVtoArray($codeformat['code_file']);
+                            foreach ($csv as $header=>$content){
+                                foreach ($content as $col=>$value) {
+                                    //Convert to UTF-8 to avoid weird characters
+                                    $value = mb_convert_encoding($value,'UTF-8','HTML-ENTITIES');
+                                    $dataFormatSearch .= $value.", ";
+                                }
+                            }
+                        }
+                    }
+                }
+
                 $variables_array  = array(
                     "instance" => $id,
                     "description" => $data['description'][$id],
                     "description_extra" => $data['description_extra'][$id],
                     "code_list_ref" => $data['code_list_ref'][$id],
                     "data_format" => trim($dataFormat[$data['data_format'][$id]]),
+                    "data_format_search" => rtrim($dataFormatSearch,", "),
                     "code_text" => $data['code_text'][$id],
                     "variable_link" => $url
                 );
