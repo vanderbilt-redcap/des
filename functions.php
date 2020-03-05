@@ -580,7 +580,7 @@ function createAndSaveJSONCron($settings,$secret_key,$secret_iv){
                             $codeOptions = empty($codeformat['code_list']) ? $data['code_text'][$id] : explode(" | ", $codeformat['code_list']);
                             foreach ($codeOptions as $option) {
                                 $var_codes = preg_split("/((?<!['\"])=(?!['\"]))/", $option);
-                                $dataFormatSearch .= trim($var_codes[2]) . ", ";
+                                $dataFormatSearch .= trim($var_codes[1]) . ", ";
                             }
                         } else if ($codeformat['code_format'] == '3') {
                             $csv = parseCSVtoArray($codeformat['code_file']);
@@ -613,7 +613,6 @@ function createAndSaveJSONCron($settings,$secret_key,$secret_iv){
         $jsonVarArray['table_link'] = $urltid;
         $jsonArray[trim($data['table_name'])] = $jsonVarArray;
     }
-
     #we save the new JSON
     if(!empty($jsonArray)){
         saveJSONCopy($jsonArray);
