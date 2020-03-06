@@ -67,7 +67,7 @@
                             <th>Field Name</th>
                             <th>Format</th>
                             <th>Format search</th>
-                            <th style='border-right: 1px solid #e0e0e0;'>Description</th>
+                            <th>Description</th>
                         </thead>
                         <tbody>
                         <?php
@@ -82,7 +82,7 @@
                                     foreach ($json_array as $tablename=>$variables){
                                         foreach ($variables as $varname=>$data){
                                             if($varname != "table_link")
-                                            $table .= "<tr style='border-right: 1px solid #e0e0e0;'>".
+                                            $table .= "<tr>".
                                                         "<td style='width:100px'><a href='".$variables['table_link']."'>".$tablename."</a></td>".
                                                         "<td style='width:100px'><a href='".$data['variable_link']."'>".$varname."</a></td>".
                                                         "<td style='width:130px'>".$data['data_format']."</td>".
