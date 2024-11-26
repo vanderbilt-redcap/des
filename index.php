@@ -27,7 +27,7 @@ session_start();
     </script>
 
 
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
 
