@@ -1,6 +1,6 @@
 {
     "require": {
-        "phpoffice/phpspreadsheet": "1.6",
+        "phpoffice/phpspreadsheet": "1.16.0",
         "dompdf/dompdf": "1.2.1"
     }
 }
